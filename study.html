@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>学習記録 | 森下陽斗 Portfolio</title>
+  <meta name="description" content="日々の学習の記録。">
+  <link rel="canonical" href="https://mori560269.github.io/portfolio/study.html">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="学習記録 | 森下陽斗 Portfolio">
+  <meta property="og:description" content="日々の学習の記録。">
+  <meta property="og:url" content="https://mori560269.github.io/portfolio/study.html">
+  <meta property="og:site_name" content="森下陽斗 Portfolio">
+  <meta name="twitter:card" content="summary">
+  <link rel="stylesheet" href="style.css?v=20261118i">
+</head>
+<body>
+
+  <header class="site-header">
+    <nav class="container nav">
+      <a href="index.html" class="logo">森下陽斗</a>
+      <ul class="nav-links">
+        <li><a href="index.html">← トップに戻る</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero hero-compact">
+      <div class="container">
+        <p class="eyebrow">Study Log</p>
+        <h1>学習記録</h1>
+        <p class="lead">日々学んだこと、解いた問題、気づいたことを書き残しています。</p>
+        <p id="summary" class="note"></p>
+        <button type="button" id="open-post" class="btn" hidden>＋ 書く</button>
+      </div>
+    </section>
+
+    <section class="section alt">
+      <div class="container blog">
+        <div class="heatmap-block">
+          <div class="heatmap-wrap"><div id="heatmap" class="heatmap"></div></div>
+          <div class="heat-legend">少ない <span class="lv0"></span><span class="lv1"></span><span class="lv2"></span><span class="lv3"></span> 多い</div>
+        </div>
+        <div id="tag-filter" class="tag-filter"></div>
+        <div id="posts"><p class="note">読み込み中…</p></div>
+      </div>
+    </section>
+  </main>
+
+  <!-- 投稿フォーム -->
+  <dialog id="post-dialog" class="dialog dialog-wide">
+    <form id="post-form" method="dialog">
+      <h3 id="post-title">記録を書く</h3>
+      <label>日付<input type="date" id="f-date" required></label>
+      <label>タイトル<input type="text" id="f-title" required maxlength="80" placeholder="例：ABC482 D問題を区間DPで解いた"></label>
+      <label>タグ（カンマ区切り）<input type="text" id="f-tags" list="tag-list" maxlength="100" placeholder="例：AtCoder, DP"></label>
+      <datalist id="tag-list"></datalist>
+      <label>本文<textarea id="f-body" rows="10" maxlength="10000" placeholder="学んだこと・考えたこと&#10;&#10;```cpp&#10;// コードは ``` で囲むと整形されます&#10;```"></textarea></label>
+      <p class="note small">空行で段落、<code>`コード`</code>、<code>```</code> でコードブロック、URL は自動でリンクになります。</p>
+      <p id="post-msg" class="form-msg"></p>
+      <div class="actions">
+        <button type="button" class="btn-sub danger" id="delete-post" hidden>削除</button>
+        <span class="spacer"></span>
+        <button type="button" class="btn-sub" id="cancel-post">キャンセル</button>
+        <button type="submit" class="btn" id="submit-post">投稿する</button>
+      </div>
+    </form>
+  </dialog>
+
+  <!-- トークン設定（URL に #admin を付けたときだけ開く） -->
+  <dialog id="token-dialog" class="dialog">
+    <form id="token-form" method="dialog">
+      <h3>投稿用トークンの設定</h3>
+      <p class="note">GitHub の Fine-grained トークン（対象リポジトリ：portfolio のみ、権限：Contents の Read and write）を貼り付けてください。トークンはこの端末のブラウザにだけ保存されます。</p>
+      <label>トークン<input type="password" id="f-token" autocomplete="off" placeholder="github_pat_..."></label>
+      <div class="actions">
+        <button type="button" class="btn-sub" id="clear-token">削除</button>
+        <span class="spacer"></span>
+        <button type="button" class="btn-sub" id="cancel-token">閉じる</button>
+        <button type="submit" class="btn">保存</button>
+      </div>
+    </form>
+  </dialog>
+
+  <footer class="site-footer">
+    <p><a href="index.html">Portfolio トップへ戻る</a></p>
+  </footer>
+
+  <script>
+  (() => {
+    const OWNER = "mori560269", REPO = "portfolio", BRANCH = "main", PATH = "study/log.json";
+    const TOKEN_KEY = "study-log-token";
+    const $ = (id) => document.getElementById(id);
+    let posts = [];
+    let fileSha = null;
+    let activeTag = null;
+    let editingId = null;
+
+    const getToken = () => { try { return localStorage.getItem(TOKEN_KEY) || ""; } catch { return ""; } };
+    const setToken = (v) => { try { v ? localStorage.setItem(TOKEN_KEY, v) : localStorage.removeItem(TOKEN_KEY); } catch {} };
+
+    const pad = (n) => String(n).padStart(2, "0");
+    const ymd = (d) => `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())}`;
+    const b64encode = (str) => { const bytes = new TextEncoder().encode(str); let bin = ""; bytes.forEach((b) => (bin += String.fromCharCode(b))); return btoa(bin); };
+    const b64decode = (b64) => new TextDecoder().decode(Uint8Array.from(atob(b64.replace(/\n/g, "")), (c) => c.charCodeAt(0)));
+    const el = (tag, cls, text) => { const e = document.createElement(tag); if (cls) e.className = cls; if (text != null) e.textContent = text; return e; };
+    const parseTags = (s) => [...new Set(s.split(/[,、]/).map((t) => t.trim()).filter(Boolean))].slice(0, 8);
+
+    // ---------- 本文の表示（HTML を直接入れず、DOM で安全に組み立てる） ----------
+    function appendInline(parent, text) {
+      const re = /(`[^`\n]+`)|(https?:\/\/[^\s<>"）)]+)/g;
+      let last = 0, m;
+      while ((m = re.exec(text))) {
+        if (m.index > last) parent.appendChild(document.createTextNode(text.slice(last, m.index)));
+        if (m[1]) parent.appendChild(el("code", null, m[1].slice(1, -1)));
+        else { const a = el("a", null, m[2]); a.href = m[2]; a.target = "_blank"; a.rel = "noopener"; parent.appendChild(a); }
+        last = re.lastIndex;
+      }
+      if (last < text.length) parent.appendChild(document.createTextNode(text.slice(last)));
+    }
+    function renderBody(body) {
+      const frag = document.createDocumentFragment();
+      const parts = body.split(/^```[^\n]*\n?/m);
+      parts.forEach((part, i) => {
+        if (i % 2 === 1) {
+          const pre = el("pre"); pre.appendChild(el("code", null, part.replace(/\n$/, ""))); frag.appendChild(pre);
+        } else {
+          part.split(/\n{2,}/).map((p) => p.trim()).filter(Boolean).forEach((p) => {
+            const para = el("p");
+            p.split("\n").forEach((line, j) => { if (j) para.appendChild(el("br")); appendInline(para, line); });
+            frag.appendChild(para);
+          });
+        }
+      });
+      return frag;
+    }
+
+    // ---------- データ ----------
+    async function loadFromApi(token) {
+      const res = await fetch(`https://api.github.com/repos/${OWNER}/${REPO}/contents/${PATH}?ref=${BRANCH}`, {
+        headers: { Accept: "application/vnd.github+json", ...(token ? { Authorization: `Bearer ${token}` } : {}) },
+        cache: "no-store",
+      });
+      if (!res.ok) throw new Error(`GitHub API ${res.status}`);
+      const j = await res.json();
+      fileSha = j.sha;
+      return JSON.parse(b64decode(j.content) || "[]");
+    }
+    async function loadData() {
+      try { posts = await loadFromApi(getToken()); }
+      catch { try { posts = await (await fetch(`${PATH}?t=${Date.now()}`, { cache: "no-store" })).json(); } catch { posts = []; } }
+      if (!Array.isArray(posts)) posts = [];
+      posts = posts.filter((p) => p && p.title);
+      render();
+    }
+    async function saveAll(mutate, message) {
+      const token = getToken();
+      if (!token) throw new Error("この端末では投稿できません");
+      const latest = await loadFromApi(token);
+      const next = mutate(Array.isArray(latest) ? latest.filter((p) => p && p.title) : []);
+      const res = await fetch(`https://api.github.com/repos/${OWNER}/${REPO}/contents/${PATH}`, {
+        method: "PUT",
+        headers: { Accept: "application/vnd.github+json", Authorization: `Bearer ${token}`, "Content-Type": "application/json" },
+        body: JSON.stringify({ message, content: b64encode(JSON.stringify(next, null, 2) + "\n"), sha: fileSha, branch: BRANCH }),
+      });
+      if (!res.ok) {
+        if (res.status === 401 || res.status === 403 || res.status === 404) throw new Error("トークンが無効か、書き込み権限がありません");
+        if (res.status === 409) throw new Error("他の更新と重なりました。もう一度お試しください");
+        throw new Error(`保存に失敗しました（${res.status}）`);
+      }
+      fileSha = (await res.json()).content.sha;
+      posts = next;
+      render();
+    }
+
+    // ---------- 表示 ----------
+    function render() {
+      const sorted = [...posts].sort((a, b) => (b.date + (b.createdAt || "")).localeCompare(a.date + (a.createdAt || "")));
+      $("summary").textContent = posts.length ? `${posts.length} 件の記録` : "";
+      renderHeatmap();
+      renderTagFilter();
+
+      const box = $("posts"); box.innerHTML = "";
+      const shown = activeTag ? sorted.filter((p) => (p.tags || []).includes(activeTag)) : sorted;
+      if (!shown.length) { box.appendChild(el("p", "note", posts.length ? "このタグの記録はありません。" : "まだ記録がありません。")); }
+      const canEdit = !!getToken();
+      shown.forEach((p) => {
+        const art = el("article", "post"); art.id = `post-${p.id}`;
+        const meta = el("div", "post-meta");
+        meta.appendChild(el("time", "post-date", p.date));
+        (p.tags || []).forEach((t) => {
+          const b = el("button", "post-tag", `#${t}`); b.type = "button";
+          b.addEventListener("click", () => { activeTag = t; render(); window.scrollTo({ top: $("tag-filter").offsetTop - 80, behavior: "smooth" }); });
+          meta.appendChild(b);
+        });
+        if (canEdit) { const e = el("button", "post-edit", "編集"); e.type = "button"; e.addEventListener("click", () => openEditor(p)); meta.appendChild(e); }
+        art.appendChild(meta);
+        art.appendChild(el("h2", "post-title", p.title));
+        if (p.body) { const body = el("div", "post-body"); body.appendChild(renderBody(p.body)); art.appendChild(body); }
+        box.appendChild(art);
+      });
+
+      const dl = $("tag-list"); dl.innerHTML = "";
+      allTags().forEach(([t]) => { const o = el("option"); o.value = t; dl.appendChild(o); });
+    }
+    function allTags() {
+      const c = {}; posts.forEach((p) => (p.tags || []).forEach((t) => (c[t] = (c[t] || 0) + 1)));
+      return Object.entries(c).sort((a, b) => b[1] - a[1]);
+    }
+    function renderTagFilter() {
+      const box = $("tag-filter"); box.innerHTML = "";
+      const tags = allTags(); if (!tags.length) return;
+      const mk = (label, tag) => {
+        const b = el("button", "chip" + (activeTag === tag ? " active" : ""), label); b.type = "button";
+        b.addEventListener("click", () => { activeTag = tag; render(); });
+        box.appendChild(b);
+      };
+      mk("すべて", null);
+      tags.forEach(([t, n]) => mk(`#${t} (${n})`, t));
+    }
+    function renderHeatmap() {
+      const byDate = {}; posts.forEach((p) => (byDate[p.date] = (byDate[p.date] || 0) + 1));
+      const hm = $("heatmap"); hm.innerHTML = "";
+      const weeks = 26, end = new Date(), endDow = (end.getDay() + 6) % 7;
+      const start = new Date(end); start.setDate(end.getDate() - endDow - (weeks - 1) * 7);
+      for (let i = 0; i < weeks * 7; i++) {
+        const day = new Date(start); day.setDate(start.getDate() + i);
+        const cell = el("span", "cell");
+        if (day > end) { cell.classList.add("future"); hm.appendChild(cell); continue; }
+        const n = byDate[ymd(day)] || 0;
+        cell.classList.add(`lv${Math.min(n, 3)}`);
+        cell.title = `${ymd(day)}：${n} 件`;
+        hm.appendChild(cell);
+      }
+    }
+
+    // ---------- 投稿・編集 ----------
+    const postDialog = $("post-dialog"), tokenDialog = $("token-dialog");
+    function openEditor(p) {
+      editingId = p ? p.id : null;
+      $("post-title").textContent = p ? "記録を編集" : "記録を書く";
+      $("submit-post").textContent = p ? "更新する" : "投稿する";
+      $("delete-post").hidden = !p;
+      $("f-date").value = p ? p.date : ymd(new Date());
+      $("f-title").value = p ? p.title : "";
+      $("f-tags").value = p ? (p.tags || []).join(", ") : "";
+      $("f-body").value = p ? (p.body || "") : "";
+      $("post-msg").textContent = "";
+      postDialog.showModal();
+    }
+    $("open-post").addEventListener("click", () => openEditor(null));
+    $("cancel-post").addEventListener("click", () => postDialog.close());
+    $("post-form").addEventListener("submit", async (ev) => {
+      ev.preventDefault();
+      const title = $("f-title").value.trim();
+      if (!title) { $("post-msg").textContent = "タイトルを入力してください。"; return; }
+      const data = { date: $("f-date").value, title, tags: parseTags($("f-tags").value), body: $("f-body").value.trim() };
+      const btn = $("submit-post"); btn.disabled = true; $("post-msg").textContent = "保存中…";
+      try {
+        if (editingId) {
+          await saveAll((list) => list.map((x) => (x.id === editingId ? { ...x, ...data, updatedAt: new Date().toISOString() } : x)), `study: edit "${title}"`);
+        } else {
+          const entry = { id: crypto.randomUUID ? crypto.randomUUID() : String(Date.now()), ...data, createdAt: new Date().toISOString() };
+          await saveAll((list) => [...list, entry], `study: "${title}"`);
+        }
+        postDialog.close();
+      } catch (err) { $("post-msg").textContent = err.message; }
+      finally { btn.disabled = false; }
+    });
+    $("delete-post").addEventListener("click", async () => {
+      if (!editingId || !confirm("この記録を削除しますか？")) return;
+      try { await saveAll((list) => list.filter((x) => x.id !== editingId), "study: delete"); postDialog.close(); }
+      catch (err) { $("post-msg").textContent = err.message; }
+    });
+
+    // ---------- トークン ----------
+    function updateOwnerUI() { $("open-post").hidden = !getToken(); }
+    function checkAdminHash() {
+      if (location.hash === "#admin") {
+        history.replaceState(null, "", location.pathname + location.search);
+        $("f-token").value = getToken(); tokenDialog.showModal();
+      }
+    }
+    $("cancel-token").addEventListener("click", () => tokenDialog.close());
+    $("clear-token").addEventListener("click", () => { setToken(""); $("f-token").value = ""; tokenDialog.close(); updateOwnerUI(); render(); });
+    $("token-form").addEventListener("submit", async (ev) => {
+      ev.preventDefault();
+      const tok = $("f-token").value.trim(); if (!tok) return;
+      try {
+        const res = await fetch(`https://api.github.com/repos/${OWNER}/${REPO}`, { headers: { Accept: "application/vnd.github+json", Authorization: `Bearer ${tok}` }, cache: "no-store" });
+        const j = res.ok ? await res.json() : null;
+        if (!j || !j.permissions || !j.permissions.push) { alert("このトークンには、このリポジトリへの書き込み権限がありません。"); return; }
+      } catch { alert("トークンを確認できませんでした。"); return; }
+      setToken(tok); tokenDialog.close(); updateOwnerUI(); render();
+    });
+    window.addEventListener("hashchange", checkAdminHash);
+
+    updateOwnerUI();
+    checkAdminHash();
+    loadData();
+  })();
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,86 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 596" role="img" aria-label="まとめて調理のスケジュール画面">
+<style>text{font-family:"Hiragino Sans","Noto Sans JP","Yu Gothic",sans-serif}</style>
+<rect width="1000" height="596" fill="#f6f8f9"/>
+<rect x="20" y="20" width="960" height="556" rx="16" fill="#fff" stroke="#d7ece6" stroke-width="1.5"/>
+<text x="48" y="62" font-size="20" font-weight="700" fill="#0f172a">1人前の最適化スケジュール</text>
+<rect x="44" y="82" width="912" height="66" rx="10" fill="#eef8f5" stroke="#d7ece6"/>
+<text x="68" y="112" font-size="17" font-weight="700" fill="#2bb58c">バラバラに作るより 36分 短縮</text>
+<text x="68" y="134" font-size="13" fill="#64748b">別々に作ると計 58分 → まとめると 22分（最長1品は 10分）</text>
+<rect x="44" y="164" width="296" height="64" rx="10" fill="#fff" stroke="#e5e7eb"/>
+<text x="192" y="188" font-size="12" fill="#64748b" text-anchor="middle">時短率</text>
+<text x="192" y="214" font-size="20" font-weight="700" fill="#2bb58c" text-anchor="middle">62%</text>
+<rect x="352" y="164" width="296" height="64" rx="10" fill="#fff" stroke="#e5e7eb"/>
+<text x="500" y="188" font-size="12" fill="#64748b" text-anchor="middle">並行度</text>
+<text x="500" y="214" font-size="20" font-weight="700" fill="#2bb58c" text-anchor="middle">85%</text>
+<rect x="660" y="164" width="296" height="64" rx="10" fill="#fff" stroke="#e5e7eb"/>
+<text x="808" y="188" font-size="12" fill="#64748b" text-anchor="middle">遊休率</text>
+<text x="808" y="214" font-size="20" font-weight="700" fill="#64748b" text-anchor="middle">48%</text>
+<text x="48" y="262" font-size="14" font-weight="700" fill="#0f172a">タイムライン</text>
+<text x="136" y="296" font-size="13" fill="#334155" text-anchor="end">コンロ1</text>
+<rect x="150" y="278" width="800" height="26" rx="4" fill="#f1f5f4"/>
+<rect x="151.0" y="278" width="52.5" height="26" rx="4" fill="#e06c6c"/>
+<text x="157.0" y="295" font-size="11.5" font-weight="600" fill="#fff">ほう…</text>
+<rect x="223.7" y="278" width="216.2" height="26" rx="4" fill="#e06c6c"/>
+<text x="229.7" y="295" font-size="11.5" font-weight="600" fill="#fff">具沢山みそ汁</text>
+<rect x="441.9" y="278" width="107.1" height="26" rx="4" fill="#e06c6c"/>
+<text x="447.9" y="295" font-size="11.5" font-weight="600" fill="#fff">焼きそば</text>
+<rect x="551.0" y="278" width="70.7" height="26" rx="4" fill="#e06c6c"/>
+<text x="557.0" y="295" font-size="11.5" font-weight="600" fill="#fff">豚キャベツ</text>
+<rect x="623.7" y="278" width="70.7" height="26" rx="4" fill="#e06c6c"/>
+<text x="629.7" y="295" font-size="11.5" font-weight="600" fill="#fff">豚しゃぶ</text>
+<rect x="696.5" y="278" width="34.4" height="26" rx="4" fill="#e06c6c"/>
+<rect x="732.8" y="278" width="107.1" height="26" rx="4" fill="#e06c6c"/>
+<text x="738.8" y="295" font-size="11.5" font-weight="600" fill="#fff">焼きそば</text>
+<rect x="841.9" y="278" width="52.5" height="26" rx="4" fill="#e06c6c"/>
+<rect x="896.5" y="278" width="38.0" height="26" rx="4" fill="#e06c6c"/>
+<text x="136" y="332" font-size="13" fill="#334155" text-anchor="end">コンロ2</text>
+<rect x="150" y="314" width="800" height="26" rx="4" fill="#f1f5f4"/>
+<rect x="260.1" y="314" width="179.8" height="26" rx="4" fill="#e06c6c"/>
+<text x="266.1" y="331" font-size="11.5" font-weight="600" fill="#fff">サバの塩焼き</text>
+<rect x="441.9" y="314" width="216.2" height="26" rx="4" fill="#e06c6c"/>
+<text x="447.9" y="331" font-size="11.5" font-weight="600" fill="#fff">鶏そぼろ</text>
+<rect x="660.1" y="314" width="107.1" height="26" rx="4" fill="#e06c6c"/>
+<text x="666.1" y="331" font-size="11.5" font-weight="600" fill="#fff">サバの塩焼き</text>
+<text x="136" y="368" font-size="13" fill="#334155" text-anchor="end">電子レンジ</text>
+<rect x="150" y="350" width="800" height="26" rx="4" fill="#f1f5f4"/>
+<rect x="423.7" y="350" width="70.7" height="26" rx="4" fill="#f4a261"/>
+<text x="429.7" y="367" font-size="11.5" font-weight="600" fill="#fff">ブロッコ…</text>
+<text x="136" y="404" font-size="13" fill="#334155" text-anchor="end">調理台</text>
+<rect x="150" y="386" width="800" height="26" rx="4" fill="#f1f5f4"/>
+<rect x="151.0" y="386" width="70.7" height="26" rx="4" fill="#f2b84b"/>
+<text x="157.0" y="403" font-size="11.5" font-weight="600" fill="#fff">具沢山み…</text>
+<rect x="223.7" y="386" width="34.4" height="26" rx="4" fill="#a8ddd2"/>
+<rect x="260.1" y="386" width="70.7" height="26" rx="4" fill="#a8ddd2"/>
+<text x="266.1" y="403" font-size="11.5" font-weight="600" fill="#1f5f52">焼きそば</text>
+<rect x="332.8" y="386" width="52.5" height="26" rx="4" fill="#a8ddd2"/>
+<text x="338.8" y="403" font-size="11.5" font-weight="600" fill="#1f5f52">鶏そ…</text>
+<rect x="387.4" y="386" width="34.4" height="26" rx="4" fill="#a8ddd2"/>
+<rect x="423.7" y="386" width="38.0" height="26" rx="4" fill="#a8ddd2"/>
+<rect x="463.7" y="386" width="34.4" height="26" rx="4" fill="#a8ddd2"/>
+<rect x="500.1" y="386" width="34.4" height="26" rx="4" fill="#a8ddd2"/>
+<rect x="678.3" y="386" width="16.2" height="26" rx="4" fill="#a8ddd2"/>
+<rect x="696.5" y="386" width="34.4" height="26" rx="4" fill="#a8ddd2"/>
+<rect x="732.8" y="386" width="34.4" height="26" rx="4" fill="#f2b84b"/>
+<text x="738.8" y="403" font-size="11.5" font-weight="600" fill="#fff">具沢</text>
+<rect x="769.2" y="386" width="16.2" height="26" rx="4" fill="#a8ddd2"/>
+<rect x="841.9" y="386" width="34.4" height="26" rx="4" fill="#a8ddd2"/>
+<text x="847.9" y="403" font-size="11.5" font-weight="600" fill="#1f5f52">焼き</text>
+<rect x="878.3" y="386" width="34.4" height="26" rx="4" fill="#a8ddd2"/>
+<rect x="914.6" y="386" width="16.2" height="26" rx="4" fill="#a8ddd2"/>
+<rect x="932.8" y="386" width="16.2" height="26" rx="4" fill="#a8ddd2"/>
+<text x="150.0" y="430" font-size="11" fill="#64748b" text-anchor="start">0分</text>
+<text x="550.0" y="430" font-size="11" fill="#64748b" text-anchor="middle">11分</text>
+<text x="950.0" y="430" font-size="11" fill="#64748b" text-anchor="end">22分</text>
+<rect x="44" y="450" width="912" height="118" rx="10" fill="#fdf2f2" stroke="#f3b9b9"/>
+<circle cx="76" cy="480" r="14" fill="#dc2626"/>
+<text x="76" y="485" font-size="13" font-weight="700" fill="#fff" text-anchor="middle">1</text>
+<rect x="102" y="466" width="150" height="28" rx="14" fill="#fff" stroke="#e5e7eb"/>
+<text x="177" y="485" font-size="12.5" font-weight="700" fill="#0f172a" text-anchor="middle">ほうれん草のおひたし</text>
+<rect x="260" y="466" width="124" height="28" rx="14" fill="#fde2e2" stroke="#f3b9b9"/>
+<text x="322" y="485" font-size="12.5" font-weight="700" fill="#b91c1c" text-anchor="middle">コンロ1　1分30秒</text>
+<text x="936" y="485" font-size="12.5" fill="#64748b" text-anchor="end">〜1分30秒</text>
+<text x="102" y="520" font-size="15" font-weight="600" fill="#0f172a">たっぷりのお湯を沸かし、ほうれん草を塩茹でする</text>
+<line x1="104" y1="530" x2="104" y2="558" stroke="#bfe5da" stroke-width="2"/>
+<text x="116" y="543" font-size="12.5" font-weight="700" fill="#2bb58c">この間にできること</text>
+<text x="116" y="560" font-size="12.5" fill="#334155">→ ［具沢山みそ汁］キャベツ、玉ねぎ、油揚げを食べやすい大きさに切る（2分）</text>
+</svg>

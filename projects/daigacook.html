@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>だいがくっく | 森下陽斗 Portfolio</title>
+  <meta name="description" content="自炊をゲーム感覚で続けられる大学生向けWebアプリ。複数レシピを並行して作る調理手順を自動で組み立てる。">
+  <link rel="canonical" href="https://mori560269.github.io/portfolio/projects/daigacook.html">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="だいがくっく | 森下陽斗 Portfolio">
+  <meta property="og:description" content="自炊をゲーム感覚で続けられる大学生向けWebアプリ。複数レシピを並行して作る調理手順を自動で組み立てる。">
+  <meta property="og:url" content="https://mori560269.github.io/portfolio/projects/daigacook.html">
+  <meta property="og:site_name" content="森下陽斗 Portfolio">
+  <meta name="twitter:card" content="summary">
+  <link rel="stylesheet" href="../style.css?v=20261118i">
+</head>
+<body>
+
+  <header class="site-header">
+    <nav class="container nav">
+      <a href="../index.html" class="logo">森下陽斗</a>
+      <ul class="nav-links">
+        <li><a href="../index.html#works">← Works に戻る</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+
+    <section class="hero">
+      <div class="container">
+        <p class="eyebrow">Personal Project</p>
+        <h1>だいがくっく</h1>
+        <p class="lead">自炊を始めても続かない大学生のための、ゲーム感覚で自炊を続けられる Web アプリです。料理をするほど経験値がたまり、スキルやストーリーが進みます。複数の料理を同時に作るときの手順を自動で組み立てる機能も作りました。</p>
+        <ul class="tags">
+          <li>React</li>
+          <li>Vite</li>
+          <li>Supabase</li>
+          <li>Tailwind CSS</li>
+          <li>CPM</li>
+          <li>貪欲法</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <h2>作ったきっかけ</h2>
+        <p>競技プログラミングでアルゴリズムを学ぶうちに、グラフやスケジューリングの考え方は、身近な料理の段取りにも応用できるのではないかと考えるようになりました。「2 品を同時に作ると、どこかで手が止まったり、片方が冷めたりする」という自炊の悩みを題材に、学んだことを実際に動くアプリにしたのがこのプロジェクトです。</p>
+      </div>
+    </section>
+
+    <section class="section alt">
+      <div class="container">
+        <h2>続けられる仕組み</h2>
+        <img src="../assets/daigacook/dashboard.svg" alt="レベル・経験値・スキル達成数・ストーリーが並ぶダッシュボード画面" class="project-diagram" loading="lazy">
+        <ul class="feature-list">
+          <li><strong>経験値とレベル</strong>：料理を記録すると経験値がたまり、レベルが上がります。</li>
+          <li><strong>スキルツリー</strong>：「切る」「加熱・焼く」「味付け」「下ごしらえ」などの分野ごとに、技術を少しずつ身につけていきます。</li>
+          <li><strong>ストーリー</strong>：レベルに応じて章が進み、「最初の失敗」「初めての成功」のような自炊の成長物語を読めます。</li>
+          <li><strong>記録と振り返り</strong>：調理カレンダー、作った料理の履歴、1日の目標に対する栄養の達成率を表示します。</li>
+          <li><strong>家にあるもので作る</strong>：持っている調理器具と食材の在庫を登録し、レシピと結びつけて管理できます。</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <h2>複数レシピの並行調理プランナー</h2>
+        <p>炒飯と味噌汁のように 2 品以上を作るとき、どの順番で何をすれば早く、しかも同時に完成するかを自動で計算します。</p>
+        <img src="../assets/daigacook/planner.svg" alt="複数の料理をコンロ2口・電子レンジ・調理台に割り当てたスケジュール画面。別々に作ると58分のところ22分に短縮" class="project-diagram" loading="lazy">
+        <ul class="feature-list">
+          <li>各レシピの工程を「この工程が終わらないと次に進めない」という依存関係のグラフ（DAG）にします。</li>
+          <li><strong>クリティカルパス法（CPM）</strong>で各工程の余裕時間を計算し、これを優先度にします。余裕がない（遅らせると全体が遅れる）工程ほど優先します。</li>
+          <li><strong>貪欲法（リストスケジューリング）</strong>で割り当てます。着手できる工程を優先度の順に並べ、空いている資源の一番早い時刻へ 1 つずつ入れていきます。コンロの口数、電子レンジ、調理台、シンクを資源の制約として扱い、同時に使えない工程が重ならないようにします。</li>
+          <li>使い終わった器具の皿洗いを自動で工程に加え、煮込みなどの待ち時間に入れます。</li>
+          <li>1 品ずつ作った場合と比べた短縮率、待ち時間の割合、同時に進めた工程の数を表示します。</li>
+          <li>貪欲法なので最適解の保証はありませんが、一瞬で計算でき、実用上十分な手順が得られます。焼きなまし法や整数計画法による改善は今後の課題です。</li>
+        </ul>
+        <p class="note">各工程には「この間にできること」として、加熱の待ち時間に進められる別の料理の作業を表示します。並行調理の手順作成に関する研究論文（中部ほか, Algorithms, 2021）を参考に実装しました。</p>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="site-footer">
+    <p><a href="../index.html">Portfolio トップへ戻る</a></p>
+  </footer>
+
+</body>
+</html>

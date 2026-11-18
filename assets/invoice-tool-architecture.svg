@@ -1,0 +1,101 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 470" role="img" aria-labelledby="t d">
+  <title id="t">請求書作成ツール 構成図</title>
+  <desc id="d">利用者はGoogle OAuthでログインし、Cloudflare Workers上のMiddleware・API・ビジネスロジックを経由して、D1に履歴を保存しBigQueryから広告費データを取得する。開発はGitHubからGitHub Actionsで型チェックとテストを行い、デプロイする。</desc>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+      <path d="M0 0 L10 5 L0 10 z" fill="#475569"/>
+    </marker>
+    <style>
+      .box { fill: #ffffff; stroke: #cbd5e1; stroke-width: 1.5; }
+      .group { fill: none; stroke-width: 2; stroke-dasharray: 6 4; }
+      .h { font: 700 14px sans-serif; fill: #0f172a; }
+      .s { font: 12px sans-serif; fill: #475569; }
+      .label { font: 600 12px sans-serif; fill: #334155; }
+      .line { stroke: #475569; stroke-width: 1.8; fill: none; marker-end: url(#arrow); }
+    </style>
+  </defs>
+
+  <rect width="900" height="470" fill="#f8fafc"/>
+
+  <!-- Group frames -->
+  <rect class="group" x="20" y="50" width="170" height="260" rx="12" stroke="#64748b"/>
+  <text class="label" x="32" y="42">利用者</text>
+
+  <rect class="group" x="230" y="50" width="440" height="260" rx="12" stroke="#f97316"/>
+  <text class="label" x="242" y="42">Cloudflare Workers + D1</text>
+
+  <rect class="group" x="710" y="50" width="170" height="260" rx="12" stroke="#2563eb"/>
+  <text class="label" x="722" y="42">Google Cloud</text>
+
+  <rect class="group" x="230" y="340" width="440" height="110" rx="12" stroke="#64748b"/>
+  <text class="label" x="242" y="332">開発・デプロイ</text>
+
+  <!-- Users -->
+  <rect class="box" x="40" y="90" width="130" height="64" rx="8"/>
+  <text class="h" x="52" y="116">ブラウザ</text>
+  <text class="s" x="52" y="136">利用者・管理者</text>
+
+  <rect class="box" x="40" y="220" width="130" height="64" rx="8"/>
+  <text class="h" x="52" y="246">Google OAuth 2.0</text>
+  <text class="s" x="52" y="266">ログイン</text>
+
+  <!-- Workers -->
+  <rect class="box" x="250" y="90" width="190" height="64" rx="8"/>
+  <text class="h" x="262" y="116">Middleware</text>
+  <text class="s" x="262" y="136">署名付きCookie検証</text>
+
+  <rect class="box" x="460" y="90" width="195" height="64" rx="8"/>
+  <text class="h" x="472" y="116">画面（React）</text>
+  <text class="s" x="472" y="136">請求書作成・確認・履歴</text>
+
+  <rect class="box" x="250" y="170" width="405" height="64" rx="8"/>
+  <text class="h" x="262" y="196">API Routes（TypeScript）</text>
+  <text class="s" x="262" y="216">invoices ・ generate ・ history ・ locks</text>
+
+  <rect class="box" x="250" y="250" width="190" height="44" rx="8"/>
+  <text class="h" x="262" y="277">ビジネスロジック</text>
+
+  <rect class="box" x="460" y="250" width="195" height="44" rx="8"/>
+  <text class="h" x="472" y="277">D1（SQLite）/ Drizzle</text>
+
+  <!-- Google Cloud -->
+  <rect class="box" x="725" y="90" width="145" height="64" rx="8"/>
+  <text class="h" x="737" y="116">サービスアカウント</text>
+  <text class="s" x="737" y="136">JWT（RS256）認証</text>
+
+  <rect class="box" x="725" y="180" width="145" height="64" rx="8"/>
+  <text class="h" x="737" y="206">BigQuery</text>
+  <text class="s" x="737" y="226">広告費データ取得</text>
+
+  <rect class="box" x="725" y="262" width="145" height="44" rx="8"/>
+  <text class="h" x="737" y="289">Calendar</text>
+
+  <!-- Dev -->
+  <rect class="box" x="250" y="370" width="120" height="58" rx="8"/>
+  <text class="h" x="262" y="395">GitHub</text>
+  <text class="s" x="262" y="414">非公開・PR</text>
+
+  <rect class="box" x="395" y="370" width="130" height="58" rx="8"/>
+  <text class="h" x="407" y="395">GitHub Actions</text>
+  <text class="s" x="407" y="414">型チェック・テスト</text>
+
+  <rect class="box" x="550" y="370" width="110" height="58" rx="8"/>
+  <text class="h" x="562" y="395">Deploy</text>
+  <text class="s" x="562" y="414">wrangler</text>
+
+  <!-- Flows -->
+  <path class="line" d="M170 122 L250 122"/>
+  <path class="line" d="M105 154 L105 220"/>
+  <path class="line" d="M170 252 L210 252 L210 230 L250 230"/>
+  <path class="line" d="M345 154 L345 170"/>
+  <path class="line" d="M655 202 L725 212"/>
+  <path class="line" d="M655 120 L725 120"/>
+  <path class="line" d="M345 234 L345 250"/>
+  <path class="line" d="M557 234 L557 250"/>
+  <path class="line" d="M370 399 L395 399"/>
+  <path class="line" d="M525 399 L550 399"/>
+  <path class="line" d="M605 370 L605 320" style="stroke:#f97316"/>
+  <text class="s" x="612" y="348" style="fill:#f97316;font-weight:600">本番反映</text>
+
+  <text class="s" x="20" y="462">※ 社内の設定・連携先の詳細は省略しています。</text>
+</svg>

@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>IoTセンサー最適配置（Q-Quest GROW） | 森下陽斗 Portfolio</title>
+  <meta name="description" content="QUBO・量子アニーリングと古典的手法（MILP・ヒューリスティック）を比較した、センサー配置とドローン運用の最適化。">
+  <link rel="canonical" href="https://mori560269.github.io/portfolio/projects/q-quest-grow.html">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="IoTセンサー最適配置（Q-Quest GROW） | 森下陽斗 Portfolio">
+  <meta property="og:description" content="QUBO・量子アニーリングと古典的手法（MILP・ヒューリスティック）を比較した、センサー配置とドローン運用の最適化。">
+  <meta property="og:url" content="https://mori560269.github.io/portfolio/projects/q-quest-grow.html">
+  <meta property="og:site_name" content="森下陽斗 Portfolio">
+  <meta name="twitter:card" content="summary">
+  <link rel="stylesheet" href="../style.css?v=20261118i">
+</head>
+<body>
+
+  <header class="site-header">
+    <nav class="container nav">
+      <a href="../index.html" class="logo">森下陽斗</a>
+      <ul class="nav-links">
+        <li><a href="../index.html#works">← Works に戻る</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+
+    <section class="hero">
+      <div class="container">
+        <p class="eyebrow">Project ・ 経済産業省 AKATSUKI プロジェクト「Q-Quest GROW」</p>
+        <h1>IoTセンサー最適配置</h1>
+        <p class="lead">架空の県（8 市町村）を舞台に、センサーの配置と災害時のドローン運用を最適化しました。QUBO（量子アニーリング向けの定式化）と古典的手法を同じ評価関数で比べ、どちらがどんな場面で有効かを検証しています。</p>
+        <ul class="tags">
+          <li>Python</li>
+          <li>QUBO</li>
+          <li>Fixstars Amplify</li>
+          <li>焼きなまし（neal）</li>
+          <li>MILP（HiGHS）</li>
+          <li>ヒューリスティック</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <h2>Phase 1：固定センサーの最適配置</h2>
+        <p>86 か所の設置候補地に 3 種類のセンサー（広域型・標準型・高精度型）のどれを置くかを決め、市町村ごとの被覆率と出力の目標を満たしつつ、総調達コストを最小にする問題です。</p>
+        <img src="../assets/qquest/placement-compare.png" alt="MILP・貪欲法・QUBOの配置結果の比較地図" class="project-diagram" loading="lazy">
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>手法</th><th>コスト</th><th>最適との差</th><th>時間</th></tr></thead>
+            <tbody>
+              <tr><td>MILP（厳密解）</td><td><strong>6,160</strong></td><td>最適</td><td>2.7 秒</td></tr>
+              <tr><td>貪欲法</td><td>6,260</td><td>+1.6%</td><td>14 秒</td></tr>
+              <tr><td>QUBO（制約・スラックあり）＋修復</td><td>6,580</td><td>+6.8%</td><td>11 秒</td></tr>
+              <tr><td>QUBO（ラグランジュ緩和）＋修復</td><td>6,300</td><td>+2.3%</td><td>9 秒</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <ul class="feature-list">
+          <li>不等式制約をそのまま QUBO にすると、スラック変数のせいで焼きなましの解が制約を満たしませんでした（5 回とも）。</li>
+          <li>そこで<strong>ラグランジュ緩和</strong>で制約を目的関数に入れ、乗数を外側のループで調整する形に変えました。修復なしでも実行可能な解が得られ、最適との差は +5.2%（修復後 +2.3%）まで縮みました。</li>
+          <li>円の和集合の面積は 2 次式で書けないため、ボンフェローニの不等式による<strong>下界</strong>で近似し、被覆を多く見積もらないようにしています。</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="section alt">
+      <div class="container">
+        <h2>Phase 2：災害時ドローンによる通信の回復</h2>
+        <p>地震で通信が止まったセンサーを、ドック搭載車で運んだドローンの中継で回復させる問題です。配布された道路網（1,682 区間）と通行止めを考慮し、全センサーの回復を最も早く終える計画を求めました。</p>
+        <img src="../assets/qquest/phase2-plan.png" alt="車とドローンの最適計画の地図" class="project-diagram narrow" loading="lazy">
+        <ul class="feature-list">
+          <li>飛行候補を列挙し、車ごとの飛行の組を集合分割 MILP で選ぶ<strong>厳密解法</strong>で、最適な完了時刻 130.1 分を 0.2 秒で証明しました。</li>
+          <li>QUBO 版は被覆を等式で書くことでスラック変数をなくし、「最大値の最小化」は負荷の 2 乗和で置き換えました。修復と局所探索を加えると、厳密解と同じ値に届きます。</li>
+          <li>条件を 1 つずつ変えて感度を調べ、「震源に近い拠点に車を 2 台足すと 30 分早くなる」など、運用の判断に使える結果を出しました。</li>
+          <li>情報が少しずつ分かる状況を想定し、判明するたびに計画を作り直す逐次再計画も実装しました。</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <h2>応用：毎秒の再最適化とトラブル対応</h2>
+        <p>20 機のドローンを各市町村に配置し、<strong>1 秒ごとに QUBO を解き直して</strong>動きを決めるシミュレーションも作りました。火災や要救助者の発見、機体の故障が起きると、その秒のうちに制約を変えて組み直します。</p>
+        <ul class="feature-list">
+          <li>6 時間で約 2 万回の QUBO を、1 回あたり組み立て 11 ms・求解 3 ms で解き、毎秒の更新に間に合わせました。</li>
+          <li>機体性能から「全域を 60 分ごとに巡回するのは不可能（最大約 14%）」と先に見積もり、そのうえで巡回範囲を広げる工夫（目的地変数、基地の移動）を入れ、6 時間の巡回率を 16% から 27% に上げました。</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="section alt">
+      <div class="container">
+        <h2>現在の取り組み</h2>
+        <p>ここまでの検証では、この規模の問題は MILP などの古典的な厳密解法のほうが速く、良い解を出しました。一方で QUBO も、定式化を工夫することで実用的な解に近づけられることが分かってきています。量子技術を使うこと自体を目的にせず、従来手法と比べながら使いどころを見極めるため、現在も研究開発に取り組んでいます。</p>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="site-footer">
+    <p><a href="../index.html">Portfolio トップへ戻る</a></p>
+  </footer>
+
+</body>
+</html>

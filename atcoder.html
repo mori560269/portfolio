@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AtCoder コンテスト実績 | 森下陽斗 Portfolio</title>
+  <meta name="description" content="AtCoder のコンテスト実績。">
+  <link rel="canonical" href="https://mori560269.github.io/portfolio/atcoder.html">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="AtCoder コンテスト実績 | 森下陽斗 Portfolio">
+  <meta property="og:description" content="AtCoder のコンテスト実績。">
+  <meta property="og:url" content="https://mori560269.github.io/portfolio/atcoder.html">
+  <meta property="og:site_name" content="森下陽斗 Portfolio">
+  <meta name="twitter:card" content="summary">
+  <link rel="stylesheet" href="style.css?v=20261118i">
+</head>
+<body>
+
+  <header class="site-header">
+    <nav class="container nav">
+      <a href="index.html" class="logo">森下陽斗</a>
+      <ul class="nav-links">
+        <li><a href="index.html">← トップに戻る</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="container">
+        <p class="eyebrow">Competitive Programming</p>
+        <h1>AtCoder コンテスト実績</h1>
+        <p class="lead">2026年6月から AtCoder に参加し、2026年9月に水色に到達しました。アルゴリズムとデータ構造に加えて、最近はヒューリスティック最適化にも取り組んでいます。</p>
+      </div>
+    </section>
+
+    <section class="section alt">
+      <div class="container">
+        <h2>Algorithm</h2>
+        <div class="stats">
+          <div class="stat">
+            <p class="stat-label">Rating</p>
+            <p class="stat-value cyan">1377</p>
+            <p class="stat-sub">水色</p>
+          </div>
+          <div class="stat">
+            <p class="stat-label">最高 Rating</p>
+            <p class="stat-value cyan">1386</p>
+            <p class="stat-sub">4 級</p>
+          </div>
+          <div class="stat">
+            <p class="stat-label">順位</p>
+            <p class="stat-value">上位 6.03%</p>
+            <p class="stat-sub">7,566 位</p>
+          </div>
+          <div class="stat">
+            <p class="stat-label">参加回数</p>
+            <p class="stat-value">19 回</p>
+            <p class="stat-sub">最終参加 2026/11/14</p>
+          </div>
+        </div>
+        <img src="assets/atcoder-rating.png" alt="AtCoder のレーティング推移（2026年6月の参加から11月に最高1386）" class="project-diagram narrow" loading="lazy">
+        <p class="note">2026年11月18日時点</p>
+      </div>
+    </section>
+    <section class="section">
+      <div class="container">
+        <h2>解答コード</h2>
+        <p id="summary" class="note"></p>
+        <div id="list"><p class="note">読み込み中…</p></div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <p><a href="index.html">Portfolio トップへ戻る</a></p>
+  </footer>
+
+  <script>
+    (async () => {
+      const owner = "mori560269", repo = "portfolio", branch = "main";
+      const list = document.getElementById("list");
+      const summary = document.getElementById("summary");
+      const langOf = (ext) => ({ cpp: "C++", cc: "C++", py: "Python", rs: "Rust", java: "Java", go: "Go", js: "JavaScript", ts: "TypeScript", c: "C", kt: "Kotlin", rb: "Ruby" }[ext] || ext);
+      const contestOrder = (id) => {
+        const m = id.match(/^([a-z]+)(\d+)$/);
+        return m ? [m[1], -parseInt(m[2], 10)] : [id, 0];
+      };
+
+      try {
+        const res = await fetch(`https://api.github.com/repos/${owner}/${repo}/git/trees/${branch}?recursive=1`);
+        if (!res.ok) throw new Error(res.status);
+        const data = await res.json();
+        const files = data.tree
+          .filter((t) => t.type === "blob" && /^atcoder\/[^/]+\/[^/]+$/.test(t.path))
+          .map((t) => {
+            const [, contest, name] = t.path.split("/");
+            const dot = name.lastIndexOf(".");
+            const base = dot > 0 ? name.slice(0, dot) : name;
+            const ext = dot > 0 ? name.slice(dot + 1).toLowerCase() : "";
+            return { path: t.path, contest, name, base, ext };
+          })
+          .filter((f) => f.name !== ".gitkeep" && f.ext !== "md");
+
+        if (files.length === 0) {
+          list.innerHTML = '<p class="note">まだコードがありません。<code>atcoder/コンテストID/問題.拡張子</code> の形で追加すると、ここに表示されます。</p>';
+          return;
+        }
+
+        const byContest = {};
+        files.forEach((f) => (byContest[f.contest] ||= []).push(f));
+        const contests = Object.keys(byContest).sort((a, b) => {
+          const [pa, na] = contestOrder(a), [pb, nb] = contestOrder(b);
+          return pa === pb ? na - nb : pa.localeCompare(pb);
+        });
+
+        summary.textContent = `${contests.length} コンテスト ・ ${files.length} 問`;
+        list.innerHTML = "";
+        list.className = "grid";
+
+        contests.forEach((c) => {
+          const card = document.createElement("article");
+          card.className = "card";
+          const h = document.createElement("h3");
+          const a = document.createElement("a");
+          a.href = `https://atcoder.jp/contests/${encodeURIComponent(c)}`;
+          a.target = "_blank"; a.rel = "noopener";
+          a.textContent = c.toUpperCase();
+          h.appendChild(a);
+          card.appendChild(h);
+
+          const ul = document.createElement("ul");
+          ul.className = "problem-list";
+          byContest[c].sort((x, y) => x.name.localeCompare(y.name)).forEach((f) => {
+            const li = document.createElement("li");
+            const code = document.createElement("a");
+            code.href = `https://github.com/${owner}/${repo}/blob/${branch}/${f.path.split("/").map(encodeURIComponent).join("/")}`;
+            code.target = "_blank"; code.rel = "noopener";
+            code.textContent = f.base.toUpperCase();
+            li.appendChild(code);
+
+            const lang = document.createElement("span");
+            lang.className = "lang";
+            lang.textContent = langOf(f.ext);
+            li.appendChild(lang);
+
+            if (/^[a-z]$/i.test(f.base)) {
+              const prob = document.createElement("a");
+              prob.href = `https://atcoder.jp/contests/${encodeURIComponent(c)}/tasks/${encodeURIComponent(c.replace(/-/g, "_"))}_${f.base.toLowerCase()}`;
+              prob.target = "_blank"; prob.rel = "noopener";
+              prob.className = "prob-link";
+              prob.textContent = "問題";
+              li.appendChild(prob);
+            }
+            ul.appendChild(li);
+          });
+          card.appendChild(ul);
+          list.appendChild(card);
+        });
+      } catch (e) {
+        list.innerHTML = `<p class="note">一覧を読み込めませんでした。<a href="https://github.com/${owner}/${repo}/tree/${branch}/atcoder" target="_blank" rel="noopener">GitHub で直接見る</a></p>`;
+      }
+    })();
+  </script>
+
+</body>
+</html>
