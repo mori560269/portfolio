@@ -520,3 +520,10 @@ a.rate-cyan,
   .profile-wrap { grid-template-columns: 1fr; }
   .profile-photo { max-width: 260px; }
 }
+
+/* Skills */
+.skill-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1.25rem; }
+.skill-group { background: #fff; border-radius: var(--radius); padding: 1.25rem 1.5rem; box-shadow: 0 1px 3px rgba(0,0,0,0.08); }
+.skill-group h3 { margin: 0 0 0.75rem; font-size: 1rem; }
+.skill-tags { display: flex; flex-wrap: wrap; gap: 0.4rem; list-style: none; padding: 0; margin: 0; }
+.skill-tags li { padding: 0.25rem 0.7rem; border: 1px solid #d1d5db; border-radius: 999px; font-size: 0.85rem; }
