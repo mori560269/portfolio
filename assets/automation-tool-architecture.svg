@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 470" role="img" aria-labelledby="t d">
-  <title id="t">請求書作成ツール 構成図</title>
-  <desc id="d">利用者はGoogle OAuthでログインし、Cloudflare Workers上のMiddleware・API・ビジネスロジックを経由して、D1に履歴を保存しBigQueryから広告費データを取得する。開発はGitHubからGitHub Actionsで型チェックとテストを行い、デプロイする。</desc>
+  <title id="t">業務自動化ツール 構成図</title>
+  <desc id="d">利用者は Google OAuth でログインし、Cloudflare Workers 上の画面と API を使う。API は D1 に履歴を保存し、Google Cloud からデータを取得する。開発は GitHub Actions で型チェック・テストとデプロイを行う。</desc>
   <defs>
     <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
       <path d="M0 0 L10 5 L0 10 z" fill="#475569"/>
@@ -46,11 +46,11 @@
 
   <rect class="box" x="460" y="90" width="195" height="64" rx="8"/>
   <text class="h" x="472" y="116">画面（React）</text>
-  <text class="s" x="472" y="136">請求書作成・確認・履歴</text>
+  <text class="s" x="472" y="136">作成・確認・履歴</text>
 
   <rect class="box" x="250" y="170" width="405" height="64" rx="8"/>
   <text class="h" x="262" y="196">API Routes（TypeScript）</text>
-  <text class="s" x="262" y="216">invoices ・ generate ・ history ・ locks</text>
+  <text class="s" x="262" y="216">一覧 ・ 生成 ・ 履歴 ・ ロック</text>
 
   <rect class="box" x="250" y="250" width="190" height="44" rx="8"/>
   <text class="h" x="262" y="277">ビジネスロジック</text>
@@ -65,7 +65,7 @@
 
   <rect class="box" x="725" y="180" width="145" height="64" rx="8"/>
   <text class="h" x="737" y="206">BigQuery</text>
-  <text class="s" x="737" y="226">広告費データ取得</text>
+  <text class="s" x="737" y="226">データ取得</text>
 
   <rect class="box" x="725" y="262" width="145" height="44" rx="8"/>
   <text class="h" x="737" y="289">Calendar</text>
