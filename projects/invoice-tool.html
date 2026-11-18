@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>請求書作成ツール | Portfolio</title>
+  <meta name="description" content="広告費データと請求ルールから請求書を自動作成するWebアプリの紹介。">
+  <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+
+  <header class="site-header">
+    <nav class="container nav">
+      <a href="../index.html" class="logo">YN</a>
+      <ul class="nav-links">
+        <li><a href="../index.html#works">← Works に戻る</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+
+    <section class="hero">
+      <div class="container">
+        <p class="eyebrow">Project</p>
+        <h1>請求書作成ツール</h1>
+        <p class="lead">広告費データ（BigQuery）と請求ルールから請求書を自動作成し、会計サービスへ登録する社内向けWebアプリです。インターン先で開発を担当しました。</p>
+        <ul class="tags">
+          <li>TypeScript</li>
+          <li>React</li>
+          <li>Cloudflare Workers</li>
+          <li>D1 / Drizzle ORM</li>
+          <li>BigQuery</li>
+          <li>GitHub Actions</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <h2>構成</h2>
+        <img src="../assets/invoice-tool-architecture.svg" alt="請求書作成ツールの構成図" class="project-diagram">
+        <p class="note">※ 社内の設定・連携先の詳細は省略しています。</p>
+      </div>
+    </section>
+
+    <section class="section alt">
+      <div class="container">
+        <h2>主な機能</h2>
+        <ul class="feature-list">
+          <li>広告費データの取得と金額計算</li>
+          <li>請求書の確認・編集と、作成結果の一覧・履歴管理</li>
+          <li>本番送信とは別に、事前確認用の「空打ち」モードを用意</li>
+          <li>生成履歴のCSV出力</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <h2>設計の工夫</h2>
+        <ul class="feature-list">
+          <li><strong>二重発行の防止</strong>：請求書ごとにロックを取り、確定まで処理が重ならないようにしました。</li>
+          <li><strong>ビジネスロジックの分離</strong>：金額計算や日付処理を純粋関数に分け、ユニットテストで検証できるようにしました。</li>
+          <li><strong>キャッシュの確定管理</strong>：広告費データは確定後のみ保存し、再計算を減らしました。</li>
+          <li><strong>秘密情報の管理</strong>：APIキーなどは Cloudflare Secrets に保管し、コードには含めていません。</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="section alt">
+      <div class="container">
+        <h2>技術スタック</h2>
+        <ul class="feature-list">
+          <li>フロントエンド：React 19、Next.js 互換（vinext）、Vite</li>
+          <li>バックエンド：Cloudflare Workers、TypeScript（API Routes）</li>
+          <li>データ：Cloudflare D1（SQLite）、Drizzle ORM</li>
+          <li>認証：Google OAuth 2.0、署名付きセッション Cookie</li>
+          <li>外部連携：BigQuery、Google Calendar、サービスアカウント（JWT）</li>
+          <li>開発・デプロイ：GitHub、GitHub Actions（CI・手動デプロイ）、wrangler</li>
+        </ul>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="site-footer">
+    <p><a href="../index.html">Portfolio トップへ戻る</a></p>
+  </footer>
+
+</body>
+</html>

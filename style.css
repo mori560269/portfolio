@@ -191,6 +191,24 @@ a:hover {
   margin: 0 0 1rem;
 }
 
+.note {
+  font-size: 0.85rem;
+  color: var(--muted);
+}
+
+.feature-list {
+  padding-left: 1.25rem;
+  margin: 0;
+}
+
+.feature-list li {
+  margin-bottom: 0.5rem;
+}
+
+.hero .tags {
+  margin-top: 1.5rem;
+}
+
 .tags li {
   padding: 0.2rem 0.6rem;
   border-radius: 999px;
