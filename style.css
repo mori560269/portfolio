@@ -495,3 +495,5 @@ a.rate-cyan,
 .qiita-item:hover { text-decoration: none; border-color: #55c500; }
 .qiita-title { display: block; font-weight: 700; }
 .qiita-meta { display: block; margin-top: 0.25rem; font-size: 0.8rem; color: var(--muted); }
+
+.writing-links a { margin-right: 1rem; font-weight: 600; }

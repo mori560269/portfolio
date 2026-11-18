@@ -38,9 +38,9 @@
 
     <section id="qiita" class="section" hidden>
       <div class="container blog">
-        <h2>Qiita の記事</h2>
+        <h2>技術記事（Qiita / Zenn）</h2>
         <div id="qiita-list" class="qiita-list"></div>
-        <a href="https://qiita.com/shiiita" class="card-link" target="_blank" rel="noopener">Qiita ですべて見る →</a>
+        <p class="writing-links"><a href="https://qiita.com/shiiita" target="_blank" rel="noopener">Qiita</a>　<a href="https://zenn.dev/shiiita" target="_blank" rel="noopener">Zenn</a></p>
       </div>
     </section>
 
@@ -313,18 +313,18 @@
   <script>
   (async () => {
     try {
-      const res = await fetch("https://qiita.com/api/v2/users/shiiita/items?per_page=10");
+      const res = await fetch(`data/writing.json?t=${Date.now()}`, { cache: "no-store" });
       if (!res.ok) return;
       const items = await res.json();
       if (!Array.isArray(items) || !items.length) return;
       const box = document.getElementById("qiita-list");
-      items.forEach((it) => {
+      items.slice(0, 10).forEach((it) => {
         const a = document.createElement("a");
         a.className = "qiita-item"; a.href = it.url; a.target = "_blank"; a.rel = "noopener";
         const t = document.createElement("span"); t.className = "qiita-title"; t.textContent = it.title;
         const m = document.createElement("span"); m.className = "qiita-meta";
-        const tags = (it.tags || []).map((x) => "#" + x.name).join(" ");
-        m.textContent = `${(it.created_at || "").slice(0, 10)}　LGTM ${it.likes_count ?? 0}　${tags}`;
+        const tags = (it.tags || []).map((x) => "#" + x).join(" ");
+        m.textContent = `${it.source}　${it.date}　いいね ${it.likes}　${tags}`;
         a.append(t, m); box.appendChild(a);
       });
       document.getElementById("qiita").hidden = false;

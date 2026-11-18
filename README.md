@@ -46,3 +46,22 @@
 ## ライセンス
 
 必要に応じて追記してください。
+
+## 技術記事（Qiita / Zenn）の追加
+
+`data/writing.json` に記事を追加すると、学習記録ページの「技術記事」と Contact のリンクに自動で表示されます（0 件のあいだは表示されません）。
+
+```json
+[
+  {
+    "source": "Zenn",
+    "title": "記事タイトル",
+    "url": "https://zenn.dev/shiiita/articles/xxxx",
+    "date": "2026-11-20",
+    "likes": 0,
+    "tags": ["AtCoder", "DP"]
+  }
+]
+```
+
+`source` は `Qiita` か `Zenn`。新しい記事を上に足してください。

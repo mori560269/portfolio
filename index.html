@@ -176,7 +176,8 @@
         <ul class="links">
           <li><a href="https://www.linkedin.com/in/%E9%99%BD%E6%96%97-%E6%A3%AE%E4%B8%8B-755729436/" target="_blank" rel="noopener">LinkedIn</a></li>
           <li><a href="https://github.com/mori560269" target="_blank" rel="noopener">GitHub</a></li>
-          <li id="qiita-link" hidden><a href="https://qiita.com/shiiita" target="_blank" rel="noopener">Qiita</a></li>
+          <li class="writing-link" data-source="Qiita" hidden><a href="https://qiita.com/shiiita" target="_blank" rel="noopener">Qiita</a></li>
+          <li class="writing-link" data-source="Zenn" hidden><a href="https://zenn.dev/shiiita" target="_blank" rel="noopener">Zenn</a></li>
         </ul>
       </div>
     </section>
@@ -188,9 +189,12 @@
   </footer>
 
   <script>
-  fetch("https://qiita.com/api/v2/users/shiiita/items?per_page=1")
+  fetch(`data/writing.json?t=${Date.now()}`, { cache: "no-store" })
     .then((r) => (r.ok ? r.json() : []))
-    .then((items) => { if (Array.isArray(items) && items.length) document.getElementById("qiita-link").hidden = false; })
+    .then((items) => {
+      const has = new Set((Array.isArray(items) ? items : []).map((x) => x.source));
+      document.querySelectorAll(".writing-link").forEach((li) => { li.hidden = !has.has(li.dataset.source); });
+    })
     .catch(() => {});
   </script>
 </body>
