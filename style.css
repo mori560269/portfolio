@@ -497,3 +497,26 @@ a.rate-cyan,
 .qiita-meta { display: block; margin-top: 0.25rem; font-size: 0.8rem; color: var(--muted); }
 
 .writing-links a { margin-right: 1rem; font-weight: 600; }
+
+/* Profile + photo */
+.profile-wrap {
+  display: grid;
+  grid-template-columns: 1fr 220px;
+  gap: 2rem;
+  align-items: start;
+  margin-bottom: 1.5rem;
+}
+.profile-wrap .profile { margin-bottom: 0; }
+.profile-photo { margin: 0; }
+.profile-photo img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 4 / 5;
+  object-fit: cover;
+  border-radius: var(--radius);
+}
+.profile-photo figcaption { margin-top: 0.4rem; font-size: 0.8rem; color: var(--muted); text-align: center; }
+@media (max-width: 700px) {
+  .profile-wrap { grid-template-columns: 1fr; }
+  .profile-photo { max-width: 260px; }
+}
