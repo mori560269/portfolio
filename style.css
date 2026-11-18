@@ -527,3 +527,15 @@ a.rate-cyan,
 .skill-group h3 { margin: 0 0 0.75rem; font-size: 1rem; }
 .skill-tags { display: flex; flex-wrap: wrap; gap: 0.4rem; list-style: none; padding: 0; margin: 0; }
 .skill-tags li { padding: 0.25rem 0.7rem; border: 1px solid #d1d5db; border-radius: 999px; font-size: 0.85rem; }
+
+/* Demo video */
+.demo-video {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 10px;
+  border: 1px solid #e5e7eb;
+  background: #fff;
+  margin: 0 0 0.5rem;
+}
+.demo-video + .note { margin: 0 0 1.5rem; }
