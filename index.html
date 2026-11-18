@@ -12,7 +12,7 @@
   <meta property="og:url" content="https://mori560269.github.io/portfolio/">
   <meta property="og:site_name" content="森下陽斗 Portfolio">
   <meta name="twitter:card" content="summary">
-  <link rel="stylesheet" href="style.css?v=20261118j">
+  <link rel="stylesheet" href="style.css?v=20261118k">
 </head>
 <body>
 
@@ -176,6 +176,7 @@
         <ul class="links">
           <li><a href="https://www.linkedin.com/in/%E9%99%BD%E6%96%97-%E6%A3%AE%E4%B8%8B-755729436/" target="_blank" rel="noopener">LinkedIn</a></li>
           <li><a href="https://github.com/mori560269" target="_blank" rel="noopener">GitHub</a></li>
+          <li id="qiita-link" hidden><a href="https://qiita.com/shiiita" target="_blank" rel="noopener">Qiita</a></li>
         </ul>
       </div>
     </section>
@@ -186,5 +187,11 @@
     <p>&copy; 2026 森下陽斗</p>
   </footer>
 
+  <script>
+  fetch("https://qiita.com/api/v2/users/shiiita/items?per_page=1")
+    .then((r) => (r.ok ? r.json() : []))
+    .then((items) => { if (Array.isArray(items) && items.length) document.getElementById("qiita-link").hidden = false; })
+    .catch(() => {});
+  </script>
 </body>
 </html>

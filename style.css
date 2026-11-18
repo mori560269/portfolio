@@ -488,3 +488,10 @@ a.rate-cyan,
 .stat-value.green, .rate-green { color: #008000; }
 .cp-h { font-size: 1.05rem; margin: 1.5rem 0 0.75rem; color: var(--muted); }
 .sub-h2 { margin-top: 3rem; }
+
+/* Qiita list */
+.qiita-list { display: grid; gap: 0.6rem; margin-bottom: 1rem; }
+.qiita-item { display: block; padding: 0.9rem 1.1rem; background: #fff; border: 1px solid #e5e7eb; border-radius: var(--radius); color: var(--fg); }
+.qiita-item:hover { text-decoration: none; border-color: #55c500; }
+.qiita-title { display: block; font-weight: 700; }
+.qiita-meta { display: block; margin-top: 0.25rem; font-size: 0.8rem; color: var(--muted); }
