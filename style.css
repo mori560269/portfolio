@@ -545,3 +545,5 @@ a.rate-cyan,
 .hero-name h1 { margin: 0; }
 .avatar { width: 88px; height: 88px; border-radius: 50%; object-fit: cover; border: 3px solid #fff; box-shadow: 0 2px 10px rgba(0,0,0,0.12); flex-shrink: 0; }
 @media (max-width: 600px) { .avatar { width: 64px; height: 64px; } }
+
+.teach-list { margin: 0 0 1rem; }
