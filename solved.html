@@ -39,6 +39,96 @@
 
         <article class="post solved">
           <div class="post-meta"><time class="post-date">2026-11-24</time><span class="post-tag">#微分積分</span><span class="post-tag">#過去問</span></div>
+          <h2 class="post-title">微分積分学 II　中間テスト（2021 年度）</h2>
+          <p class="note">2変数関数の連続性・陰関数・極値・ラグランジュの未定乗数法</p>
+
+          <!-- [1] -->
+          <div class="prob">
+            <h3>[1] 原点での連続性</h3>
+            <p>次の関数が原点で連続かどうかを議論せよ。</p>
+            <ol>
+              <li>$f(x,y)=\dfrac{|xy|^{0.5+\varepsilon}}{\sqrt{x^2+y^2}}\ \ ((x,y)\neq(0,0)),\quad f(0,0)=0$（$\varepsilon>0$）</li>
+              <li>$f(x,y)=\dfrac{\sin(x^2+y^2)}{x^2+y^2}\ \ ((x,y)\neq(0,0)),\quad f(0,0)=0$</li>
+            </ol>
+            <details>
+              <summary>解答を見る</summary>
+              <div class="ans">
+                <p><strong>(i)</strong> 極座標 $x=r\cos\theta,\ y=r\sin\theta$ とおくと $|xy|=r^2|\sin\theta\cos\theta|\le\dfrac{r^2}{2}$。よって<br>
+                $0\le f(x,y)\le\dfrac{(r^2/2)^{0.5+\varepsilon}}{r}=\dfrac{r^{2\varepsilon}}{2^{0.5+\varepsilon}}\to0\quad(r\to0)$<br>
+                $\theta$ によらず $0=f(0,0)$ に近づくので<strong>連続</strong>。</p>
+                <p><strong>(ii)</strong> $r^2=x^2+y^2$ とおくと $f=\dfrac{\sin r^2}{r^2}\to1$。これは $f(0,0)=0$ と一致しないので<strong>連続ではない</strong>。</p>
+              </div>
+            </details>
+          </div>
+
+          <!-- [2] -->
+          <div class="prob">
+            <h3>[2] 陰関数</h3>
+            <p>$f(x,y)=2x^2-xy+y^2-1$ について、</p>
+            <ol>
+              <li>$f_x,\ f_y,\ f_{xx},\ f_{xy},\ f_{yx},\ f_{yy}$ を求めよ。</li>
+              <li>$f(x,y)=0$ で局所的に定義される陰関数 $y=g(x)$ の $g'(x),\ g''(x)$ を求めよ（$x,\ y$ を含んでよいが $y'$ は含まないこと）。</li>
+              <li>$y=g(x)$ に極値が存在するか。存在するならそれを求め、極大・極小のいずれか答えよ。</li>
+            </ol>
+            <details>
+              <summary>解答を見る</summary>
+              <div class="ans">
+                <p><strong>(1)</strong> $f_x=4x-y,\quad f_y=-x+2y,\quad f_{xx}=4,\quad f_{xy}=f_{yx}=-1,\quad f_{yy}=2$</p>
+                <p><strong>(2)</strong> $g'(x)=-\dfrac{f_x}{f_y}=\dfrac{4x-y}{x-2y}$<br>
+                $g''(x)=-\dfrac{f_{xx}f_y^2-2f_{xy}f_xf_y+f_{yy}f_x^2}{f_y^3}$ の分子を計算すると<br>
+                $4(2y-x)^2+2(4x-y)(2y-x)+2(4x-y)^2=14(2x^2-xy+y^2)=14$（曲線上なので $2x^2-xy+y^2=1$）<br>
+                よって $g''(x)=\dfrac{14}{(x-2y)^3}$</p>
+                <p><strong>(3)</strong> $g'=0$ より $y=4x$。$f=0$ に代入して $14x^2=1$。どちらの点も $f_y\neq0$。</p>
+                <ul>
+                  <li>$x=\dfrac{1}{\sqrt{14}}$ のとき $y=\dfrac{4}{\sqrt{14}}$、$x-2y=-\dfrac{7}{\sqrt{14}}<0$ より $g''<0$ → <strong>極大値 $\dfrac{4}{\sqrt{14}}$</strong></li>
+                  <li>$x=-\dfrac{1}{\sqrt{14}}$ のとき $y=-\dfrac{4}{\sqrt{14}}$、$g''>0$ → <strong>極小値 $-\dfrac{4}{\sqrt{14}}$</strong></li>
+                </ul>
+              </div>
+            </details>
+          </div>
+
+          <!-- [3] -->
+          <div class="prob">
+            <h3>[3] 極値</h3>
+            <p>$f(x,y)=x^3-3axy+y^3$（$a>0$）について、</p>
+            <ol>
+              <li>$(x,y)=(0,0)$ では極値を取らないことを示せ。</li>
+              <li>この関数が極値を取るならその座標と関数値を求めよ。</li>
+            </ol>
+            <details>
+              <summary>解答を見る</summary>
+              <div class="ans">
+                <p><strong>(1)</strong> $f(0,0)=0$。$x$ 軸上（$y=0$）では $f(x,0)=x^3$ なので、原点のどんな近くにも $f>0$ の点（$x>0$）と $f<0$ の点（$x<0$）がある。よって原点で<strong>極値を取らない</strong>。（ヘッセ行列式も $D=-9a^2<0$）</p>
+                <p><strong>(2)</strong> $f_x=3x^2-3ay=0,\ f_y=-3ax+3y^2=0$ より $y=\dfrac{x^2}{a}$、$x=\dfrac{y^2}{a}=\dfrac{x^4}{a^3}$。<br>
+                停留点は $(0,0),\ (a,a)$。<br>
+                $(a,a)$ では $f_{xx}=6a,\ f_{yy}=6a,\ f_{xy}=-3a$ で $D=36a^2-9a^2=27a^2>0,\ f_{xx}>0$。<br>
+                → <strong>$(a,a)$ で極小値 $-a^3$</strong></p>
+              </div>
+            </details>
+          </div>
+
+          <!-- [4] -->
+          <div class="prob">
+            <h3>[4] ラグランジュの未定乗数法</h3>
+            <p>条件 $4x^2+y^2=4$ の下で $xy$ の最大値と最小値を求めよ（最大値・最小値の存在は仮定してよい）。</p>
+            <details>
+              <summary>解答を見る</summary>
+              <div class="ans">
+                <p>$F=xy-\lambda(4x^2+y^2-4)$ として $F_x=y-8\lambda x=0,\ F_y=x-2\lambda y=0$。<br>
+                $x=2\lambda y=16\lambda^2x$ で、$x=0$ だと $y=0$ となり条件を満たさないので $\lambda^2=\dfrac{1}{16}$、$y=\pm2x$。<br>
+                条件に代入して $8x^2=4$、$x=\pm\dfrac{1}{\sqrt2}$。</p>
+                <ul>
+                  <li><strong>最大値 $1$</strong>：$\left(\dfrac{1}{\sqrt2},\sqrt2\right),\ \left(-\dfrac{1}{\sqrt2},-\sqrt2\right)$</li>
+                  <li><strong>最小値 $-1$</strong>：$\left(\dfrac{1}{\sqrt2},-\sqrt2\right),\ \left(-\dfrac{1}{\sqrt2},\sqrt2\right)$</li>
+                </ul>
+              </div>
+            </details>
+          </div>
+
+        </article>
+
+        <article class="post solved">
+          <div class="post-meta"><time class="post-date">2026-11-24</time><span class="post-tag">#微分積分</span><span class="post-tag">#過去問</span></div>
           <h2 class="post-title">微分積分学 II　中間テスト（2024 年度）</h2>
           <p class="note">2変数関数の極限・偏微分・陰関数・極値・ラグランジュの未定乗数法</p>
 
