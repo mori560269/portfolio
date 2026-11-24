@@ -547,3 +547,14 @@ a.rate-cyan,
 @media (max-width: 600px) { .avatar { width: 64px; height: 64px; } }
 
 .teach-list { margin: 0 0 1rem; }
+
+/* Solved problems */
+.solved .prob { border-top: 1px solid #e5e7eb; padding-top: 1.25rem; margin-top: 1.25rem; }
+.solved .prob h3 { margin: 0 0 0.5rem; font-size: 1.05rem; }
+.solved ol { padding-left: 1.4rem; margin: 0.5rem 0 0.75rem; }
+.solved ol li { margin-bottom: 0.35rem; }
+.solved details { background: #f8fafc; border: 1px solid #e5e7eb; border-radius: 8px; padding: 0.6rem 1rem; }
+.solved summary { cursor: pointer; font-weight: 700; color: var(--accent); }
+.solved .ans { margin-top: 0.75rem; overflow-x: auto; }
+.solved .ans p, .solved .ans ul { margin: 0 0 0.75rem; }
+.solved-link { display: inline-block; margin-top: 1rem; font-weight: 700; }

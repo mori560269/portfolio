@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>最近解いた問題 | 森下陽斗 Portfolio</title>
+  <meta name="description" content="最近解いた問題と、その解答のメモ。">
+  <meta name="robots" content="noindex">
+  <link rel="icon" href="favicon.png" type="image/png">
+  <link rel="apple-touch-icon" href="apple-touch-icon.png">
+  <link rel="stylesheet" href="style.css?v=20261124a">
+  <script>
+    window.MathJax = { tex: { inlineMath: [["$", "$"], ["\\(", "\\)"]] } };
+  </script>
+  <script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+</head>
+<body>
+
+  <header class="site-header">
+    <nav class="container nav">
+      <a href="index.html" class="logo">森下陽斗</a>
+      <ul class="nav-links">
+        <li><a href="study.html">← 学習記録に戻る</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero hero-compact">
+      <div class="container">
+        <p class="eyebrow">Solved Problems</p>
+        <h1>最近解いた問題</h1>
+        <p class="lead">解いた問題と解答を、あとで見直せるようにまとめています。解答は「解答を見る」を押すと開きます。</p>
+      </div>
+    </section>
+
+    <section class="section alt">
+      <div class="container blog">
+
+        <article class="post solved">
+          <div class="post-meta"><time class="post-date">2026-11-24</time><span class="post-tag">#微分積分</span><span class="post-tag">#過去問</span></div>
+          <h2 class="post-title">微分積分学 II　中間テスト（2024 年度）</h2>
+          <p class="note">2変数関数の極限・偏微分・陰関数・極値・ラグランジュの未定乗数法</p>
+
+          <!-- [1] -->
+          <div class="prob">
+            <h3>[1] 2変数関数の極限</h3>
+            <p>$\displaystyle f(x,y)=\frac{\sin(x^2+\alpha y^2)}{x^2+y^2}$（$\alpha$ は実数）について、</p>
+            <ol>
+              <li>$\lim_{x\to0}\lim_{y\to0}f(x,y)$ と $\lim_{y\to0}\lim_{x\to0}f(x,y)$ を求めよ。</li>
+              <li>$\lim_{(x,y)\to(0,0)}f(x,y)$ が値を取るかどうか考える。(i) $\alpha=-1$ のとき極限は存在するか。(ii) 極限が存在するのは $\alpha$ がどのような値のときか。そのときの値は。</li>
+            </ol>
+            <details>
+              <summary>解答を見る</summary>
+              <div class="ans">
+                <p><strong>(1)</strong> $y\to0$ とすると $\dfrac{\sin x^2}{x^2}$、続けて $x\to0$ で $\boldsymbol{1}$。<br>
+                逆順では $x\to0$ で $\dfrac{\sin(\alpha y^2)}{y^2}$、$y\to0$ で $\boldsymbol{\alpha}$。</p>
+                <p><strong>(2)(i)</strong> $x$ 軸に沿って近づくと $1$、$y$ 軸に沿って近づくと $-1$ になり、近づき方で値が違うので<strong>極限は存在しない</strong>。</p>
+                <p><strong>(2)(ii)</strong> 極限が存在するなら (1) の2つの累次極限は一致するので $1=\alpha$ が必要。逆に $\alpha=1$ なら $r^2=x^2+y^2$ として $f=\dfrac{\sin r^2}{r^2}\to1$。よって <strong>$\alpha=1$ のときに限り存在し、値は $1$</strong>。</p>
+              </div>
+            </details>
+          </div>
+
+          <!-- [2] -->
+          <div class="prob">
+            <h3>[2] 陰関数</h3>
+            <p>$f(x,y)=x^2-xy+y^2-4$ について、</p>
+            <ol>
+              <li>$f_x,\ f_y,\ f_{xx},\ f_{xy},\ f_{yx},\ f_{yy}$ を求めよ。</li>
+              <li>$f(x,y)=0$ で局所的に陰関数 $y=g(x)$ を考える。陰関数定理における陰関数存在の条件を満たさない点を求めよ。</li>
+              <li>(2) 以外の点で、$g'(x)$ を $x,\ g(x)$ で、$g''(x)$ を $x,\ g(x),\ g'(x)$ で表せ。</li>
+              <li>$y=g(x)$ に極値が存在するか。存在するならそれを求め、極大・極小のいずれか答えよ。</li>
+            </ol>
+            <details>
+              <summary>解答を見る</summary>
+              <div class="ans">
+                <p><strong>(1)</strong> $f_x=2x-y,\quad f_y=-x+2y,\quad f_{xx}=2,\quad f_{xy}=f_{yx}=-1,\quad f_{yy}=2$</p>
+                <p><strong>(2)</strong> 条件は $f_y\neq0$。$f=0$ かつ $f_y=0$（$x=2y$）を解くと $3y^2=4$ より<br>
+                $\left(\dfrac{4}{\sqrt3},\ \dfrac{2}{\sqrt3}\right),\ \left(-\dfrac{4}{\sqrt3},\ -\dfrac{2}{\sqrt3}\right)$</p>
+                <p><strong>(3)</strong> $g'(x)=-\dfrac{f_x}{f_y}=\dfrac{2x-g}{x-2g}$。<br>
+                これをもう一度微分すると<br>
+                $g''(x)=\dfrac{(2-g')(x-2g)-(2x-g)(1-2g')}{(x-2g)^2}=\dfrac{3\,(x g'-g)}{(x-2g)^2}$<br>
+                （$g'$ を代入して曲線上の関係 $x^2-xg+g^2=4$ を使うと $g''=\dfrac{24}{(x-2g)^3}$ とも書ける）</p>
+                <p><strong>(4)</strong> $g'=0$ より $y=2x$。$f=0$ に代入して $3x^2=4$。どちらの点も $f_y\neq0$ なので陰関数は存在する。</p>
+                <ul>
+                  <li>$x=\dfrac{2}{\sqrt3}$ のとき $g=\dfrac{4}{\sqrt3}$、$x-2g=-\dfrac{6}{\sqrt3}<0$ より $g''<0$ → <strong>極大値 $\dfrac{4}{\sqrt3}$</strong></li>
+                  <li>$x=-\dfrac{2}{\sqrt3}$ のとき $g=-\dfrac{4}{\sqrt3}$、$x-2g=\dfrac{6}{\sqrt3}>0$ より $g''>0$ → <strong>極小値 $-\dfrac{4}{\sqrt3}$</strong></li>
+                </ul>
+              </div>
+            </details>
+          </div>
+
+          <!-- [3] -->
+          <div class="prob">
+            <h3>[3] 極値</h3>
+            <p>次の関数の極値を求めよ（極値とそれを取る点、極大・極小の別）。存在しないならその理由を示せ。</p>
+            <ol>
+              <li>$f(x,y)=e^{1+x^2+y^2}$</li>
+              <li>$f(x,y)=x^2-4xy+y^4+2$</li>
+            </ol>
+            <details>
+              <summary>解答を見る</summary>
+              <div class="ans">
+                <p><strong>(1)</strong> $f_x=2x\,e^{1+x^2+y^2},\ f_y=2y\,e^{1+x^2+y^2}$ より停留点は $(0,0)$ のみ。$x^2+y^2\ge0$ なので $f(x,y)\ge e=f(0,0)$。<br>
+                → <strong>$(0,0)$ で極小値 $e$</strong>（極大値はなし）</p>
+                <p><strong>(2)</strong> $f_x=2x-4y=0,\ f_y=-4x+4y^3=0$ より $x=2y,\ y^3=2y$。<br>
+                停留点は $(0,0),\ (2\sqrt2,\sqrt2),\ (-2\sqrt2,-\sqrt2)$。<br>
+                $f_{xx}=2,\ f_{xy}=-4,\ f_{yy}=12y^2$ より $D=f_{xx}f_{yy}-f_{xy}^2=24y^2-16$。</p>
+                <ul>
+                  <li>$(0,0)$：$D=-16<0$ → 鞍点で<strong>極値ではない</strong></li>
+                  <li>$(\pm2\sqrt2,\pm\sqrt2)$（複号同順）：$D=32>0,\ f_{xx}>0$ → <strong>極小値 $-2$</strong></li>
+                </ul>
+              </div>
+            </details>
+          </div>
+
+          <!-- [4] -->
+          <div class="prob">
+            <h3>[4] 条件付き極値（ラグランジュの未定乗数法）</h3>
+            <p>条件 $g(x,y)=x^2+2y^2-1=0$ の下で $f(x,y)=xy$ を考える。</p>
+            <ol>
+              <li>この条件下で極値を取るのは 4 点ある。ラグランジュの未定乗数法によりその 4 点を求めよ。</li>
+              <li>4 点のうち $x$ 座標が正の 2 点を $(\alpha_1,\beta_1),(\alpha_2,\beta_2)$（$\beta_1>\beta_2$）とする。それぞれの近くで $g=0$ の陰関数を $y=\varphi_1(x),\ y=\varphi_2(x)$ とするとき、$\varphi_1'(\alpha_1),\ \varphi_1''(\alpha_1),\ \varphi_2'(\alpha_2),\ \varphi_2''(\alpha_2)$ を求めよ。</li>
+              <li>$p_1(x)=f(x,\varphi_1(x)),\ p_2(x)=f(x,\varphi_2(x))$ とする。$p_1'(\alpha_1),\ p_1''(\alpha_1),\ p_2'(\alpha_2),\ p_2''(\alpha_2)$ を計算し、各点が条件付きの極大・極小のどちらか判定せよ。</li>
+            </ol>
+            <details>
+              <summary>解答を見る</summary>
+              <div class="ans">
+                <p><strong>(1)</strong> $F=xy-\lambda(x^2+2y^2-1)$ として $F_x=y-2\lambda x=0,\ F_y=x-4\lambda y=0$。<br>
+                $x=4\lambda y=8\lambda^2x$ で、$x=0$ だと $y=0$ となり条件を満たさないので $\lambda^2=\dfrac18$。<br>
+                $y=\pm\dfrac{x}{\sqrt2}$ を条件に代入して $2x^2=1$。よって<br>
+                $\left(\dfrac{1}{\sqrt2},\dfrac12\right),\ \left(\dfrac{1}{\sqrt2},-\dfrac12\right),\ \left(-\dfrac{1}{\sqrt2},\dfrac12\right),\ \left(-\dfrac{1}{\sqrt2},-\dfrac12\right)$</p>
+                <p><strong>(2)</strong> $(\alpha_1,\beta_1)=\left(\dfrac{1}{\sqrt2},\dfrac12\right),\ (\alpha_2,\beta_2)=\left(\dfrac{1}{\sqrt2},-\dfrac12\right)$。<br>
+                条件式を微分して $\varphi'=-\dfrac{x}{2\varphi}$、さらに微分して $\varphi''=-\dfrac{\varphi-x\varphi'}{2\varphi^2}$。</p>
+                <ul>
+                  <li>$\varphi_1'(\alpha_1)=-\dfrac{1}{\sqrt2},\quad \varphi_1''(\alpha_1)=-2$</li>
+                  <li>$\varphi_2'(\alpha_2)=\dfrac{1}{\sqrt2},\quad \varphi_2''(\alpha_2)=2$</li>
+                </ul>
+                <p><strong>(3)</strong> $p=x\varphi$ より $p'=\varphi+x\varphi',\quad p''=2\varphi'+x\varphi''$。</p>
+                <ul>
+                  <li>$p_1'(\alpha_1)=\dfrac12-\dfrac12=0,\quad p_1''(\alpha_1)=-\sqrt2-\sqrt2=-2\sqrt2<0$ → <strong>$(\alpha_1,\beta_1)$ で極大</strong>（値 $\dfrac{\sqrt2}{4}$）</li>
+                  <li>$p_2'(\alpha_2)=-\dfrac12+\dfrac12=0,\quad p_2''(\alpha_2)=\sqrt2+\sqrt2=2\sqrt2>0$ → <strong>$(\alpha_2,\beta_2)$ で極小</strong>（値 $-\dfrac{\sqrt2}{4}$）</li>
+                </ul>
+              </div>
+            </details>
+          </div>
+
+        </article>
+
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <p><a href="study.html">学習記録に戻る</a>　<a href="index.html">Portfolio トップへ</a></p>
+  </footer>
+
+</body>
+</html>
