@@ -39,6 +39,95 @@
 
         <article class="post solved">
           <div class="post-meta"><time class="post-date">2026-11-24</time><span class="post-tag">#微分積分</span><span class="post-tag">#過去問</span></div>
+          <h2 class="post-title">微分積分学 II　中間テスト（2022 年度）</h2>
+          <p class="note">連続性・合成関数の偏微分・極値・陰関数・ラグランジュの未定乗数法</p>
+
+          <!-- [1] -->
+          <div class="prob">
+            <h3>[1] 連続性と合成関数の偏微分</h3>
+            <ol>
+              <li>$f(x,y)=\dfrac{2x^3+4x^2y^2}{x^2+2y^2}\ \ ((x,y)\neq(0,0)),\quad f(0,0)=0$ が全 $xy$ 平面上で連続かどうかを議論せよ。</li>
+              <li>$f(x,y)=x^2+y^3+2$ とする。$g(u,v)=f(u+v,\ u-v)$ と定義したとき、$g_u,\ g_v$ を計算せよ。</li>
+            </ol>
+            <details>
+              <summary>解答を見る</summary>
+              <div class="ans">
+                <p><strong>(1)</strong> 原点以外では、分母が $0$ にならない有理関数なので連続。原点では次のように評価できる。</p>
+                <ul>
+                  <li>$\left|\dfrac{2x^3}{x^2+2y^2}\right|\le\dfrac{2|x|^3}{x^2}=2|x|\to0$</li>
+                  <li>相加相乗平均より $x^2\cdot2y^2\le\left(\dfrac{x^2+2y^2}{2}\right)^2$ なので $0\le\dfrac{4x^2y^2}{x^2+2y^2}\le\dfrac{x^2+2y^2}{2}\to0$</li>
+                </ul>
+                <p>よって $f(x,y)\to0=f(0,0)$ となり、原点でも連続。<strong>全平面で連続</strong>。</p>
+                <p><strong>(2)</strong> $g(u,v)=(u+v)^2+(u-v)^3+2$。連鎖律（$x=u+v,\ y=u-v$）より<br>
+                $g_u=f_x\cdot1+f_y\cdot1=2(u+v)+3(u-v)^2$<br>
+                $g_v=f_x\cdot1+f_y\cdot(-1)=2(u+v)-3(u-v)^2$</p>
+              </div>
+            </details>
+          </div>
+
+          <!-- [2] -->
+          <div class="prob">
+            <h3>[2] 極値</h3>
+            <p>$f(x,y)=-x^2+xy-y^2-x+2y+2$ について、</p>
+            <ol>
+              <li>極値候補点（1回偏微分を $0$ とする点）を求めよ。</li>
+              <li>(1) の点で $f$ は極値を取るか。取らない場合はその理由を、取る場合は極大・極小のいずれかを示せ。</li>
+            </ol>
+            <details>
+              <summary>解答を見る</summary>
+              <div class="ans">
+                <p><strong>(1)</strong> $f_x=-2x+y-1=0,\ f_y=x-2y+2=0$ を解いて <strong>$(0,1)$</strong>。</p>
+                <p><strong>(2)</strong> $f_{xx}=-2,\ f_{yy}=-2,\ f_{xy}=1$ より $D=4-1=3>0,\ f_{xx}<0$。<br>
+                → <strong>$(0,1)$ で極大値 $3$</strong></p>
+              </div>
+            </details>
+          </div>
+
+          <!-- [3] -->
+          <div class="prob">
+            <h3>[3] 陰関数の極値</h3>
+            <p>$f(x,y)=x^2+xy+2y^2-7$ について、</p>
+            <ol>
+              <li>$f(x,y)=0,\ (x,y)\neq(\pm2\sqrt2,\ \mp1/\sqrt2)$ を満たす点の軌跡を考える。各点の近くで陰関数 $y=g(x)$ が存在することを示し、$g'(x)$ を $x,\ y$ で表せ。</li>
+              <li>$y=g(x)$ の極値候補点を求めよ。</li>
+              <li>(2) の点の極小・極大を $g''$ の値をもとに論じよ。</li>
+            </ol>
+            <details>
+              <summary>解答を見る</summary>
+              <div class="ans">
+                <p><strong>(1)</strong> $f_y=x+4y$。$f=0$ かつ $f_y=0$ を解くと $x=-4y,\ 14y^2=7$ より $(\pm2\sqrt2,\ \mp1/\sqrt2)$ だけ。これらを除く点では $f_y\neq0$ なので、陰関数定理により陰関数 $y=g(x)$ が存在する。<br>
+                $g'(x)=-\dfrac{f_x}{f_y}=-\dfrac{2x+y}{x+4y}$</p>
+                <p><strong>(2)</strong> $g'=0$ より $y=-2x$。$f=0$ に代入して $7x^2=7$。極値候補点は <strong>$(1,-2),\ (-1,2)$</strong>。</p>
+                <p><strong>(3)</strong> $g''=-\dfrac{f_{xx}f_y^2-2f_{xy}f_xf_y+f_{yy}f_x^2}{f_y^3}$ で、候補点では $f_x=0$ なので $g''=-\dfrac{f_{xx}}{f_y}=-\dfrac{2}{x+4y}$。</p>
+                <ul>
+                  <li>$(1,-2)$：$x+4y=-7$ より $g''=\dfrac27>0$ → <strong>極小値 $-2$</strong></li>
+                  <li>$(-1,2)$：$x+4y=7$ より $g''=-\dfrac27<0$ → <strong>極大値 $2$</strong></li>
+                </ul>
+              </div>
+            </details>
+          </div>
+
+          <!-- [4] -->
+          <div class="prob">
+            <h3>[4] ラグランジュの未定乗数法</h3>
+            <p>条件 $2x^2+y^2=1$ の下で $x+y$ の最大値と最小値を求めよ（最大値・最小値の存在は仮定してよい）。</p>
+            <details>
+              <summary>解答を見る</summary>
+              <div class="ans">
+                <p>$F=x+y-\lambda(2x^2+y^2-1)$ として $F_x=1-4\lambda x=0,\ F_y=1-2\lambda y=0$。<br>
+                $x=\dfrac{1}{4\lambda},\ y=\dfrac{1}{2\lambda}$ より $y=2x$。条件に代入して $6x^2=1$。</p>
+                <ul>
+                  <li><strong>最大値 $\dfrac{\sqrt6}{2}$</strong>：$\left(\dfrac{1}{\sqrt6},\ \dfrac{2}{\sqrt6}\right)$</li>
+                  <li><strong>最小値 $-\dfrac{\sqrt6}{2}$</strong>：$\left(-\dfrac{1}{\sqrt6},\ -\dfrac{2}{\sqrt6}\right)$</li>
+                </ul>
+              </div>
+            </details>
+          </div>
+
+        </article>
+
+        <article class="post solved">
+          <div class="post-meta"><time class="post-date">2026-11-24</time><span class="post-tag">#微分積分</span><span class="post-tag">#過去問</span></div>
           <h2 class="post-title">微分積分学 II　中間テスト（2021 年度）</h2>
           <p class="note">2変数関数の連続性・陰関数・極値・ラグランジュの未定乗数法</p>
 
