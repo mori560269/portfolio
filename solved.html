@@ -38,6 +38,125 @@
       <div class="container blog">
 
         <article class="post solved">
+          <div class="post-meta"><time class="post-date">2026-11-26</time><span class="post-tag">#微分積分</span><span class="post-tag">#過去問</span></div>
+          <h2 class="post-title">微分積分学 II　中間テスト（2025 年度）</h2>
+          <p class="note">連続性・偏微分の連続性・$C^p$ 級・変数変換・極値・ラグランジュの未定乗数法</p>
+
+          <!-- [1] -->
+          <div class="prob">
+            <h3>[1] 連続性と偏微分</h3>
+            <p>$f(x,y)=\dfrac{xy(x^2-y^2)}{x^2+y^2}\ \ ((x,y)\neq(0,0)),\quad f(0,0)=\alpha$ について、</p>
+            <ol>
+              <li>$f$ が連続関数であるとき、$\alpha$ が満たすべき条件を求めよ。（以下、$\alpha$ はその条件を満たすとする）</li>
+              <li>$f_x,\ f_y$ が連続かどうかを確かめたい。(i) $f_x(0,y)\ (y\neq0)$、$f_y(x,0)\ (x\neq0)$ を求めよ。(ii) $f_x(0,0),\ f_y(0,0)$ を求め、$f_x,\ f_y$ が連続かどうか結論付けよ。</li>
+              <li>(a) $f_{xy}(0,0),\ f_{yx}(0,0)$ を求めよ。(b)「$f$ は $C^p$ 級であるが $C^{p+1}$ 級ではない」の $p$ に何が入るか、理由とともに答えよ。</li>
+            </ol>
+            <details>
+              <summary>解答を見る</summary>
+              <div class="ans">
+                <p><strong>(1)</strong> $|x^2-y^2|\le x^2+y^2$ より $|f(x,y)|\le|xy|\to0$。連続であるためには $f(0,0)=\lim f=0$ が必要十分なので <strong>$\alpha=0$</strong>。</p>
+                <p><strong>(2)(i)</strong> $(x,y)\neq(0,0)$ で<br>
+                $f_x=\dfrac{y(x^4+4x^2y^2-y^4)}{(x^2+y^2)^2},\qquad f_y=\dfrac{x(x^4-4x^2y^2-y^4)}{(x^2+y^2)^2}$<br>
+                よって <strong>$f_x(0,y)=-y$、$f_y(x,0)=x$</strong>。</p>
+                <p><strong>(2)(ii)</strong> 定義から $f_x(0,0)=\lim_{h\to0}\dfrac{f(h,0)-f(0,0)}{h}=0$、同様に $f_y(0,0)=0$。<br>
+                極座標にすると $f_x=r\cdot(\theta\text{ だけの有界な式})$ となり $|f_x|\le Cr\to0=f_x(0,0)$。$f_y$ も同じ。原点以外では有理関数なので連続。<br>
+                → <strong>$f_x,\ f_y$ は全平面で連続</strong>（$f$ は $C^1$ 級）。</p>
+                <p><strong>(3)(a)</strong> $f_{xy}=(f_x)_y$ として<br>
+                $f_{xy}(0,0)=\lim_{k\to0}\dfrac{f_x(0,k)-f_x(0,0)}{k}=\lim\dfrac{-k}{k}=\boldsymbol{-1}$<br>
+                $f_{yx}(0,0)=\lim_{h\to0}\dfrac{f_y(h,0)-f_y(0,0)}{h}=\lim\dfrac{h}{h}=\boldsymbol{1}$</p>
+                <p><strong>(3)(b)</strong> <strong>$p=1$</strong>。(2) より $C^1$ 級。もし $C^2$ 級ならシュワルツの定理で $f_{xy}(0,0)=f_{yx}(0,0)$ となるはずだが、(a) で $-1\neq1$ なので $C^2$ 級ではない。</p>
+              </div>
+            </details>
+          </div>
+
+          <!-- [2] -->
+          <div class="prob">
+            <h3>[2] 変数変換</h3>
+            <p>$f$ は全平面で $C^1$ 級、$z=f(x,y)$、$u=x+y$、$v=x-y$ とする。</p>
+            <ol>
+              <li>$z$ を $u,v$ の関数とみたとき、$z_u,\ z_v$ を $f_x,\ f_y$ で表せ。</li>
+              <li>$f(x,y)=x^2+4y^3+2$ のとき、$z_u,\ z_v$ を求めよ。</li>
+              <li>すべての $(x,y)$ で $f_x=f_y$ が成り立つとき、またそのときに限り、一変数関数 $g$ を用いて $z=g(x+y)$ と書けることを示せ。</li>
+            </ol>
+            <details>
+              <summary>解答を見る</summary>
+              <div class="ans">
+                <p><strong>(1)</strong> $x=\dfrac{u+v}{2},\ y=\dfrac{u-v}{2}$ なので連鎖律より<br>
+                $z_u=\dfrac{f_x+f_y}{2},\qquad z_v=\dfrac{f_x-f_y}{2}$</p>
+                <p><strong>(2)</strong> $f_x=2x=u+v,\ f_y=12y^2=3(u-v)^2$ より<br>
+                $z_u=\dfrac{(u+v)+3(u-v)^2}{2},\qquad z_v=\dfrac{(u+v)-3(u-v)^2}{2}$</p>
+                <p><strong>(3)</strong> ($\Rightarrow$) $f_x=f_y$ なら (1) より全平面で $z_v=0$。$u$ を固定すると $z$ は $v$ について定数なので、$z$ は $u$ だけで決まる。$g(t)=z(t,0)=f\!\left(\dfrac t2,\dfrac t2\right)$ とおけば $z=g(u)=g(x+y)$（$f$ が $C^1$ 級なので $g$ も微分可能）。<br>
+                ($\Leftarrow$) $z=g(x+y)$ なら $f_x=g'(x+y)=f_y$。</p>
+              </div>
+            </details>
+          </div>
+
+          <!-- [3] -->
+          <div class="prob">
+            <h3>[3] 極値</h3>
+            <p>次の関数に極値は存在するか。するなら極値とそれを取る点を、しないならその理由を示せ。</p>
+            <ol>
+              <li>$f(x,y)=1-x^2-2xy-y^3-x$</li>
+              <li>$f(x,y)=\cos x+\cos y-\cos(x+y)$</li>
+            </ol>
+            <details>
+              <summary>解答を見る</summary>
+              <div class="ans">
+                <p><strong>(1)</strong> $f_x=-2x-2y-1=0,\ f_y=-2x-3y^2=0$。第1式から $x=-y-\dfrac12$、代入して $3y^2-2y-1=0$ より $y=1,\ -\dfrac13$。<br>
+                停留点は $\left(-\dfrac32,1\right),\ \left(-\dfrac16,-\dfrac13\right)$。$f_{xx}=-2,\ f_{xy}=-2,\ f_{yy}=-6y$ より $D=12y-4$。</p>
+                <ul>
+                  <li>$\left(-\dfrac32,1\right)$：$D=8>0,\ f_{xx}<0$ → <strong>極大値 $\dfrac94$</strong></li>
+                  <li>$\left(-\dfrac16,-\dfrac13\right)$：$D=-8<0$ → 鞍点で極値ではない</li>
+                </ul>
+                <p><strong>(2)</strong> $f_x=-\sin x+\sin(x+y)=0,\ f_y=-\sin y+\sin(x+y)=0$ より $\sin x=\sin y=\sin(x+y)$。<br>
+                和積の公式で $\sin x-\sin y=2\cos\dfrac{x+y}{2}\sin\dfrac{x-y}{2}=0$。</p>
+                <ul>
+                  <li>$\sin\dfrac{x-y}{2}=0$（$y\equiv x$）のとき：$\sin x=\sin2x$ より $\sin x\,(1-2\cos x)=0$ → $x\equiv0,\ \pi,\ \pm\dfrac\pi3$</li>
+                  <li>$\cos\dfrac{x+y}{2}=0$（$x+y\equiv\pi$）のとき：$\sin(x+y)=0$ より $\sin x=\sin y=0$ → $(0,\pi),\ (\pi,0)$</li>
+                </ul>
+                <p>（$\equiv$ は $2\pi$ の整数倍の差を無視する意味。$f$ は $x,\ y$ それぞれについて周期 $2\pi$）<br>
+                $f_{xx}=-\cos x+\cos(x+y),\ f_{yy}=-\cos y+\cos(x+y),\ f_{xy}=\cos(x+y)$ で判定する。</p>
+                <ul>
+                  <li>$\left(\pm\dfrac\pi3,\pm\dfrac\pi3\right)$（複号同順）：$D=\dfrac34>0,\ f_{xx}=-1<0$ → <strong>極大値 $\dfrac32$</strong></li>
+                  <li>$(\pi,\pi)$：$D=3>0,\ f_{xx}=2>0$ → <strong>極小値 $-3$</strong></li>
+                  <li>$(0,0),\ (0,\pi),\ (\pi,0)$：$D=-1<0$ → 鞍点で極値ではない</li>
+                </ul>
+                <p>実際の点は、これらに $(2m\pi,\ 2n\pi)$（$m,n$ は整数）を足したものすべて。</p>
+              </div>
+            </details>
+          </div>
+
+          <!-- [4] -->
+          <div class="prob">
+            <h3>[4] 条件付き極値（ラグランジュの未定乗数法）</h3>
+            <p>条件 $g(x,y)=2x^2+y^2-1=0$ の下で $f(x,y)=x+y$ を考える。</p>
+            <ol>
+              <li>この条件下で極値を取るのは 2 点ある。ラグランジュの未定乗数法によりその 2 点を求めよ。</li>
+              <li>極値候補点を $(\alpha_1,\beta_1),(\alpha_2,\beta_2)$（$\alpha_1\ge\alpha_2$）とし、それぞれの近くの陰関数を $y=\phi_1(x),\ y=\phi_2(x)$ とするとき、$\phi_1'(\alpha_1),\ \phi_1''(\alpha_1),\ \phi_2'(\alpha_2),\ \phi_2''(\alpha_2)$ を求めよ。</li>
+              <li>$p_1(x)=f(x,\phi_1(x)),\ p_2(x)=f(x,\phi_2(x))$ の $p_1',\ p_1'',\ p_2',\ p_2''$ を計算し、各点が条件付きの極大・極小のどちらか判定せよ。</li>
+            </ol>
+            <details>
+              <summary>解答を見る</summary>
+              <div class="ans">
+                <p><strong>(1)</strong> $F=x+y-\lambda(2x^2+y^2-1)$ として $1=4\lambda x,\ 1=2\lambda y$ より $y=2x$。条件に代入して $6x^2=1$。<br>
+                <strong>$\left(\dfrac{1}{\sqrt6},\dfrac{2}{\sqrt6}\right),\ \left(-\dfrac{1}{\sqrt6},-\dfrac{2}{\sqrt6}\right)$</strong></p>
+                <p><strong>(2)</strong> 条件を微分して $4x+2\phi\phi'=0$ より $\phi'=-\dfrac{2x}{\phi}$、さらに微分して $\phi''=-\dfrac{2(\phi-x\phi')}{\phi^2}$。</p>
+                <ul>
+                  <li>$\phi_1'(\alpha_1)=-1,\quad \phi_1''(\alpha_1)=-\dfrac{3\sqrt6}{2}$</li>
+                  <li>$\phi_2'(\alpha_2)=-1,\quad \phi_2''(\alpha_2)=\dfrac{3\sqrt6}{2}$</li>
+                </ul>
+                <p><strong>(3)</strong> $p=x+\phi$ より $p'=1+\phi',\ p''=\phi''$。</p>
+                <ul>
+                  <li>$p_1'(\alpha_1)=0,\ p_1''(\alpha_1)=-\dfrac{3\sqrt6}{2}<0$ → <strong>$(\alpha_1,\beta_1)$ で極大</strong>（値 $\dfrac{\sqrt6}{2}$）</li>
+                  <li>$p_2'(\alpha_2)=0,\ p_2''(\alpha_2)=\dfrac{3\sqrt6}{2}>0$ → <strong>$(\alpha_2,\beta_2)$ で極小</strong>（値 $-\dfrac{\sqrt6}{2}$）</li>
+                </ul>
+              </div>
+            </details>
+          </div>
+
+        </article>
+
+        <article class="post solved">
           <div class="post-meta"><time class="post-date">2026-11-24</time><span class="post-tag">#微分積分</span><span class="post-tag">#過去問</span></div>
           <h2 class="post-title">微分積分学 II　中間テスト（2022 年度）</h2>
           <p class="note">連続性・合成関数の偏微分・極値・陰関数・ラグランジュの未定乗数法</p>
